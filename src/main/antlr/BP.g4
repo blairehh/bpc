@@ -15,8 +15,10 @@ variableDeclaration: Indentation Identifier ' ' Identifier ' = ' expr;
 procedureCall: Indentation procedureCallExpr;
 procedureCallExpr: Identifier('(' (expr (', ' expr)*) ')' | '()');
 
-expr: literal | procedureCallExpr;
+expr: literal | procedureCallExpr | identifier;
 literal: numberExpr | booleanExpr | charExpr | stringExpr;
+
+identifier: Identifier;
 
 numberExpr: NUMBER;
 booleanExpr: BOOLEAN;

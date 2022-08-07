@@ -37,7 +37,6 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void exitProc(BPParser.ProcContext ctx) {
-        System.out.println("eeeee");
         this.listener.exitProcedure();
     }
 
@@ -184,6 +183,16 @@ public class SyntaxListenerWrapper implements BPListener {
     @Override
     public void exitReturnStatement(BPParser.ReturnStatementContext ctx) {
         this.listener.exitReturnStatement();
+    }
+
+    @Override
+    public void enterIdentifier(BPParser.IdentifierContext ctx) {
+        this.listener.enterIdentifier(ctx.Identifier().getText());
+    }
+
+    @Override
+    public void exitIdentifier(BPParser.IdentifierContext ctx) {
+        this.listener.exitIdentifier();
     }
 
     @Override

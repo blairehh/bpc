@@ -503,4 +503,33 @@ class SourceFileTest {
         );
     }
 
+    @Test
+    void testPassDeclaredVariableToProc() {
+        String code = read("pass_declared_variable_to_proc.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new VariableDeclaration(
+                            "number",
+                            "int",
+                            new NumberExpr(8)
+                        ),
+                        new ProcedureCall("print", List.of(new Identifier("number")))
+                    )
+                )
+            )
+        );
+    }
 }

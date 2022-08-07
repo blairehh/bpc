@@ -1,0 +1,4 @@
+proc main() {
+    int number = 8
+    print(number)
+}

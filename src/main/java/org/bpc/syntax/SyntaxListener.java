@@ -25,6 +25,9 @@ public interface SyntaxListener {
     default void enterReturnStatement() {}
     default void exitReturnStatement() {}
 
+    default void enterIdentifier(String name) {}
+    default void exitIdentifier() {}
+
     // @TODO rename to literal expr
     default void enterExpr(Expr expr) {}
     default void exitExpr() {}
