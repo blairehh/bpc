@@ -1,4 +1,4 @@
-package org.bpc.registry;
+package org.bpc.compile;
 
 import org.bpc.ast.Parameter;
 import org.bpc.ast.Type;
