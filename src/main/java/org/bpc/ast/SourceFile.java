@@ -1,5 +1,6 @@
 package org.bpc.ast;
 
+import org.bpc.compile.CodeFile;
 import org.bpc.syntax.SyntaxListener;
 
 import java.util.*;
@@ -144,6 +145,10 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void exitUse() {
+    }
+
+    public CodeFile toCodeFile() {
+        return new CodeFile(this.uses, this.procedures);
     }
 
     @Override
