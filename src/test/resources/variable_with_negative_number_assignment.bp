@@ -1,0 +1,3 @@
+proc func() int {
+    int num = -97
+}

@@ -322,4 +322,93 @@ class SourceFileTest {
         );
     }
 
+
+    @Test
+    void testVariableWithNegativeNumberAssignment() {
+        String code = read("variable_with_negative_number_assignment.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "func",
+                    "int",
+                    List.of(),
+                    new Block(
+                        new VariableDeclaration(
+                            "num",
+                            "int",
+                            new NumberExpr("-97")
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    @Test
+    void testVariableWithDecimalNumberAssignment() {
+        String code = read("variable_with_decimal_number_assignment.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "func",
+                    "int",
+                    List.of(),
+                    new Block(
+                        new VariableDeclaration(
+                            "num",
+                            "int",
+                            new NumberExpr("97.6866")
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    @Test
+    void testVariableWithNegativeDecimalNumberAssignment() {
+        String code = read("variable_with_negative_decimal_number_assignment.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "func",
+                    "int",
+                    List.of(),
+                    new Block(
+                        new VariableDeclaration(
+                            "num",
+                            "int",
+                            new NumberExpr("-97.97")
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+
 }
