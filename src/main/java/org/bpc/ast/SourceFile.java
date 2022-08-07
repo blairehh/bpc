@@ -33,7 +33,7 @@ public class SourceFile implements SyntaxListener {
     public void startProcedureDefinition(String name, String returnType, List<String> namespace) {
         this.currentProcedure = new Procedure(
             name,
-            returnType == null ? null : new Type(returnType, namespace)
+            returnType == null ? null : new Type(returnType, new Namespace(namespace))
         );
         this.currentBlock = this.currentProcedure.block();
         this.procedures.add(this.currentProcedure);
@@ -47,7 +47,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void startParameter(String name, String type, List<String> namespace) {
-        Parameter parameter = new Parameter(name, new Type(type, namespace));
+        Parameter parameter = new Parameter(name, new Type(type, new Namespace(namespace)));
         this.currentProcedure.parameters().add(parameter);
     }
 
@@ -57,7 +57,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void enterVariableDeclaration(String name, String type, List<String> namespace) {
-        VariableDeclaration declaration = new VariableDeclaration(name, new Type(type, namespace));
+        VariableDeclaration declaration = new VariableDeclaration(name, new Type(type, new Namespace(namespace)));
         this.assignable.push(declaration);
         this.currentBlock.addStatement(declaration);
     }
@@ -76,7 +76,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void enterProcedureCall(String name, List<String> namespace) {
-        ProcedureCall procedureCall = new ProcedureCall(new Identifier(name, namespace));
+        ProcedureCall procedureCall = new ProcedureCall(new Identifier(name, new Namespace(namespace)));
         this.assignable.push(procedureCall);
         this.currentBlock.addStatement(procedureCall);
         this.enteredProcedureStatement = true;
@@ -106,7 +106,7 @@ public class SourceFile implements SyntaxListener {
             this.enteredProcedureStatement = false;
             return;
         }
-        ProcedureCall call = new ProcedureCall(new Identifier(name, namespace));
+        ProcedureCall call = new ProcedureCall(new Identifier(name, new Namespace(namespace)));
         this.assignable.peek().assign(call);
         this.assignable.push(call);
     }
@@ -130,7 +130,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void enterIdentifier(String name, List<String> namespace) {
-        this.assignable.peek().assign(new Identifier(name, namespace));
+        this.assignable.peek().assign(new Identifier(name, new Namespace(namespace)));
     }
 
     @Override
@@ -139,7 +139,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void enterUse(List<String> namespace) {
-        this.uses.add(new Use(namespace));
+        this.uses.add(new Use(new Namespace(namespace)));
     }
 
     @Override

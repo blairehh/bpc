@@ -548,7 +548,7 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "main",
-                    new Type("tcp-server", List.of("sock")),
+                    new Type("tcp-server", new Namespace("sock")),
                     List.of(),
                     new Block(
                         new ProcedureCall(new Identifier("run"))
@@ -577,10 +577,10 @@ class SourceFileTest {
                     List.of(),
                     new Block(
                         new ProcedureCall(
-                            new Identifier("println", List.of("console")),
+                            new Identifier("println", new Namespace("console")),
                             List.of(
-                                new Identifier("name", List.of("os")),
-                                new ProcedureCall(new Identifier("bar", List.of("foo")))
+                                new Identifier("name", new Namespace("os")),
+                                new ProcedureCall(new Identifier("bar", new Namespace("foo")))
                             )
                         )
                     )
@@ -609,7 +609,7 @@ class SourceFileTest {
                     new Block(
                         new VariableDeclaration(
                             "fd",
-                            new Type("file-descriptor", List.of("io")),
+                            new Type("file-descriptor", new Namespace("io")),
                             new NumberExpr(0)
                         )
                     )
@@ -635,7 +635,7 @@ class SourceFileTest {
                     "main",
                     null,
                     List.of(
-                        new Parameter("fd", new Type("file-descriptor", List.of("io"))),
+                        new Parameter("fd", new Type("file-descriptor", new Namespace("io"))),
                         new Parameter("mode", new Type("int"))
                     ),
                     new Block()
@@ -681,7 +681,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use(List.of("spring-boot"))),
+                List.of(new Use(new Namespace("spring-boot"))),
                 new Procedure(
                     "main",
                     null,
@@ -705,7 +705,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use(List.of("aws", "sqs"))),
+                List.of(new Use(new Namespace("aws", "sqs"))),
                 new Procedure(
                     "main",
                     null,
@@ -729,7 +729,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use(List.of("foo", "bar", "baz", "doh"))),
+                List.of(new Use(new Namespace("foo", "bar", "baz", "doh"))),
                 new Procedure(
                     "main",
                     null,
