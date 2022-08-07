@@ -136,7 +136,7 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void enterBooleanExpr(BPParser.BooleanExprContext ctx) {
-        this.listener.enterExpr(new BoolExpr(ctx.BOOLEAN().getText()));
+        this.listener.enterExpr(new BoolExpr(Boolean.parseBoolean(ctx.BOOLEAN().getText())));
     }
 
     @Override

@@ -131,7 +131,7 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "num",
                             "int",
-                            new NumberExpr("9")
+                            new NumberExpr(9)
                         )
                     )
                 )
@@ -160,7 +160,7 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "num",
                             "int",
-                            new NumberExpr("1234567890")
+                            new NumberExpr(1234567890)
                         )
                     )
                 )
@@ -190,12 +190,12 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "num",
                             "int",
-                            new NumberExpr("9")
+                            new NumberExpr(9)
                         ),
                         new VariableDeclaration(
                             "active",
                             "binary",
-                            new BoolExpr("true")
+                            new BoolExpr(true)
                         ),
                         new VariableDeclaration(
                             "letter",
@@ -234,8 +234,8 @@ class SourceFileTest {
                         new ProcedureCall(
                             "bar",
                             List.of(
-                                new NumberExpr("1"),
-                                new BoolExpr("true"),
+                                new NumberExpr(1),
+                                new BoolExpr(false),
                                 new StringExpr("oi")
                             )
                         )
@@ -308,9 +308,9 @@ class SourceFileTest {
                                     new ProcedureCall(
                                         "doh",
                                         List.of(
-                                            new NumberExpr("987"),
+                                            new NumberExpr(987),
                                             new ProcedureCall("something", List.of(new StringExpr("here"))),
-                                            new BoolExpr("true")
+                                            new BoolExpr(true)
                                         )
                                     )
                                 )
@@ -344,7 +344,7 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "num",
                             "int",
-                            new NumberExpr("-97")
+                            new NumberExpr(-97)
                         )
                     )
                 )
@@ -373,7 +373,7 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "num",
                             "int",
-                            new NumberExpr("97.6866")
+                            new NumberExpr(97.6866)
                         )
                     )
                 )
@@ -402,7 +402,7 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "num",
                             "int",
-                            new NumberExpr("-97.97")
+                            new NumberExpr(-97.97)
                         )
                     )
                 )
