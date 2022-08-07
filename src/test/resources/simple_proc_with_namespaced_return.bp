@@ -1,0 +1,3 @@
+proc main() sock:tcp-server {
+    run()
+}

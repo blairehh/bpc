@@ -1,4 +1,9 @@
 package org.bpc.ast;
 
-public record Type(String name) {
+import java.util.List;
+
+public record Type(String name, List<String> namespace) {
+    public Type(String name) {
+        this(name, List.of());
+    }
 }

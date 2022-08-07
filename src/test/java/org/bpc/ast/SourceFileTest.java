@@ -532,4 +532,29 @@ class SourceFileTest {
             )
         );
     }
+
+    @Test
+    void testSimpleProcWithNamespacedReturn() {
+        String code = read("simple_proc_with_namespaced_return.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "main",
+                    new Type("tcp-server", List.of("sock")),
+                    List.of(),
+                    new Block(
+                        new ProcedureCall("run")
+                    )
+                )
+            )
+        );
+    }
 }

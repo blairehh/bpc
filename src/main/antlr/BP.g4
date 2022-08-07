@@ -4,7 +4,7 @@ grammar BP;
 prog: (proc | BlankLine | NewLine)+;
 
 proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
-proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Identifier)?;
+proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Namespace? Identifier)?;
 parameter: Identifier ' ' Identifier;
 
 procedureStatement: variableDeclaration | procedureCall '\n';
@@ -33,6 +33,7 @@ CHAR: '\'' . '\'';
 STRING: '"' .* '"'; // @TODO replace .* with something to so greedy
 
 Identifier: [a-z][a-zA-Z0-9-]*;
+Namespace: [a-z][.a-z]* ':';
 
 NewLine: '\n';
 BlankLine: ('\t' | ' ')* '\n' { skip(); };

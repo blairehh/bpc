@@ -21,8 +21,11 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void startProcedureDefinition(String name, String returnType) {
-        this.currentProcedure = new Procedure(name, returnType == null ? null : new Type(returnType));
+    public void startProcedureDefinition(String name, String returnType, String returnTypeNamespace) {
+        List<String> namespace = Optional.ofNullable(returnTypeNamespace)
+            .map((value) -> List.of(value.split("\\.")))
+            .orElse(List.of());
+        this.currentProcedure = new Procedure(name, returnType == null ? null : new Type(returnType, namespace));
         this.currentBlock = this.currentProcedure.block();
         this.procedures.add(this.currentProcedure);
     }

@@ -2,6 +2,7 @@ package org.bpc.syntax;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.bpc.ast.BoolExpr;
 import org.bpc.ast.CharExpr;
@@ -10,6 +11,7 @@ import org.bpc.ast.StringExpr;
 import org.bpc.grammar.BPListener;
 import org.bpc.grammar.BPParser;
 
+import java.util.List;
 import java.util.Optional;
 
 public class SyntaxListenerWrapper implements BPListener {
@@ -44,7 +46,8 @@ public class SyntaxListenerWrapper implements BPListener {
     public void enterProc_def(BPParser.Proc_defContext ctx) {
         this.listener.startProcedureDefinition(
             ctx.Identifier().get(0).getText(),
-            Optional.ofNullable(ctx.Identifier(1)).map(TerminalNode::getText).orElse(null)
+            Optional.ofNullable(ctx.Identifier(1)).map(TerminalNode::getText).orElse(null),
+            Optional.ofNullable(ctx.Namespace()).map((value) -> value.getText().replace(":", "")).orElse(null)
         );
     }
 
