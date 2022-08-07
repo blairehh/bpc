@@ -22,6 +22,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void startProcedureDefinition(String name, String returnType) {
+        System.out.println("entering " + name);
         this.currentProcedure = new Procedure(name, returnType);
         this.currentBlock = this.currentProcedure.block();
         this.procedures.add(this.currentProcedure);
@@ -29,6 +30,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void exitProcedure() {
+        System.out.println("exiting");
         this.currentProcedure = null;
         this.currentBlock = null;
     }

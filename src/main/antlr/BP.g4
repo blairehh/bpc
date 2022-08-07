@@ -1,9 +1,9 @@
 grammar BP;
 
 
-prog: WS* proc EOF;
+prog: WS* (proc | BlankLine | NewLine)+;
 
-proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | '\n')* '}';
+proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
 proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Identifier)?;
 parameter: Identifier ' ' Identifier;
 
@@ -32,6 +32,7 @@ STRING: '"' .* '"'; // @TODO replace .* with something to so greedy
 
 Identifier: [a-z][a-zA-Z0-9-]*;
 
+NewLine: '\n';
 BlankLine: ('\t' | ' ')* '\n' { skip(); };
 Indentation:  ('\t' | ' ')*;
 
