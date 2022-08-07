@@ -22,7 +22,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void startProcedureDefinition(String name, String returnType) {
-        this.currentProcedure = new Procedure(name, returnType);
+        this.currentProcedure = new Procedure(name, returnType == null ? null : new Type(returnType));
         this.currentBlock = this.currentProcedure.block();
         this.procedures.add(this.currentProcedure);
     }
@@ -45,7 +45,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void enterVariableDeclaration(String name, String type) {
-        VariableDeclaration declaration = new VariableDeclaration(name, type);
+        VariableDeclaration declaration = new VariableDeclaration(name, new Type(type));
         this.assignable.push(declaration);
         this.currentBlock.addStatement(declaration);
     }

@@ -50,7 +50,7 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "main",
-                    "int",
+                    new Type("int"),
                     List.of(new Parameter("foo", "int")),
                     new Block()
                 )
@@ -101,7 +101,7 @@ class SourceFileTest {
                     new Block(
                         new VariableDeclaration(
                             "baz",
-                            "dec",
+                            new Type("dec"),
                             new NumberExpr(0)
                         ),
                         new ProcedureCall("doh")
@@ -126,12 +126,12 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "foo-bar",
-                    "int",
+                    new Type("int"),
                     List.of(new Parameter("fo", "fo")),
                     new Block(
                         new VariableDeclaration(
                             "num",
-                            "int",
+                            new Type("int"),
                             new NumberExpr(9)
                         )
                     )
@@ -155,12 +155,12 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "foo-bar",
-                    "int",
+                    new Type("int"),
                     List.of(new Parameter("fo", "fo")),
                     new Block(
                         new VariableDeclaration(
                             "num",
-                            "int",
+                            new Type("int"),
                             new NumberExpr(1234567890)
                         )
                     )
@@ -185,27 +185,27 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "foo-bar",
-                    "int",
+                    new Type("int"),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
                             "num",
-                            "int",
+                            new Type("int"),
                             new NumberExpr(9)
                         ),
                         new VariableDeclaration(
                             "active",
-                            "binary",
+                            new Type("binary"),
                             new BoolExpr(true)
                         ),
                         new VariableDeclaration(
                             "letter",
-                            "char",
+                            new Type("char"),
                             new CharExpr("C")
                         ),
                         new VariableDeclaration(
                             "text",
-                            "char",
+                            new Type("char"),
                             new StringExpr("hello")
                         )
                     )
@@ -267,7 +267,7 @@ class SourceFileTest {
                     new Block(
                         new VariableDeclaration(
                             "bar",
-                            "int",
+                            new Type("int"),
                             new ProcedureCall(
                                 "baz",
                                 List.of(
@@ -302,7 +302,7 @@ class SourceFileTest {
                     new Block(
                         new VariableDeclaration(
                             "bar",
-                            "int",
+                            new Type("int"),
                             new ProcedureCall(
                                 "baz",
                                 List.of(
@@ -339,12 +339,12 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "func",
-                    "int",
+                    new Type("int"),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
                             "num",
-                            "int",
+                            new Type("int"),
                             new NumberExpr(-97)
                         )
                     )
@@ -368,12 +368,12 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "func",
-                    "int",
+                    new Type("int"),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
                             "num",
-                            "int",
+                            new Type("int"),
                             new NumberExpr(97.6866)
                         )
                     )
@@ -397,12 +397,12 @@ class SourceFileTest {
             new SourceFile(
                 new Procedure(
                     "func",
-                    "int",
+                    new Type("int"),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
                             "num",
-                            "int",
+                            new Type("int"),
                             new NumberExpr(-97.97)
                         )
                     )
@@ -523,7 +523,7 @@ class SourceFileTest {
                     new Block(
                         new VariableDeclaration(
                             "number",
-                            "int",
+                            new Type("int"),
                             new NumberExpr(8)
                         ),
                         new ProcedureCall("print", List.of(new Identifier("number")))

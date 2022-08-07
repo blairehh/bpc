@@ -3,19 +3,19 @@ package org.bpc.ast;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-// @TODO replace with dodging record
+// @TODO replace with record
 public final class VariableDeclaration implements Statement, Assignable {
     private final String name;
-    private final String type;
+    private final Type type;
     private Expr expr;
 
-    public VariableDeclaration(String name, String type) {
+    public VariableDeclaration(String name, Type type) {
         this.name = name;
         this.type = type;
         this.expr = null;
     }
 
-    public VariableDeclaration(String name, String type, Expr expr) {
+    public VariableDeclaration(String name, Type type, Expr expr) {
         this.name = name;
         this.type = type;
         this.expr = expr;
@@ -30,7 +30,7 @@ public final class VariableDeclaration implements Statement, Assignable {
         return name;
     }
 
-    public String type() {
+    public Type type() {
         return type;
     }
 
