@@ -36,7 +36,7 @@ Identifier: [a-z][a-zA-Z0-9-]*;
 
 NewLine: '\n';
 BlankLine: ('\t' | ' ')* '\n' { skip(); };
-Indentation:  ('\t' | ' ')*;
+Indentation:  ('\t' | ' ')+;
 
 
 WS:  ('\t' | ' ' | '\r' | '\n' | '\u000C') { skip(); };
