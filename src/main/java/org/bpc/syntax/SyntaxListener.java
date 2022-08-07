@@ -30,6 +30,9 @@ public interface SyntaxListener {
     default void enterIdentifier(String name, List<String> namespace) {}
     default void exitIdentifier() {}
 
+    default void enterUse(List<String> namespace) {}
+    default void exitUse() {}
+
     // @TODO rename to literal expr
     default void enterExpr(Expr expr) {}
     default void exitExpr() {}

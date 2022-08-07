@@ -643,4 +643,124 @@ class SourceFileTest {
             )
         );
     }
+
+    @Test
+    void testSingleUse() {
+        String code = read("single_use.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                List.of(new Use("console")),
+                new Procedure(
+                    "main",
+                    null,
+                    List.of( ),
+                    new Block()
+                )
+            )
+        );
+    }
+
+    @Test
+    void testUseWithDash() {
+        String code = read("use_with_dash.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                List.of(new Use(List.of("spring-boot"))),
+                new Procedure(
+                    "main",
+                    null,
+                    List.of( ),
+                    new Block()
+                )
+            )
+        );
+    }
+
+    @Test
+    void testUseWithDot() {
+        String code = read("use_with_dot.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                List.of(new Use(List.of("aws", "sqs"))),
+                new Procedure(
+                    "main",
+                    null,
+                    List.of( ),
+                    new Block()
+                )
+            )
+        );
+    }
+
+    @Test
+    void testUseWithManyDots() {
+        String code = read("use_with_many_dots.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                List.of(new Use(List.of("foo", "bar", "baz", "doh"))),
+                new Procedure(
+                    "main",
+                    null,
+                    List.of( ),
+                    new Block()
+                )
+            )
+        );
+    }
+
+    @Test
+    void testMultipleUse() {
+        String code = read("multiple_use.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                List.of(new Use("console"), new Use("disk"), new Use("http")),
+                new Procedure(
+                    "main",
+                    null,
+                    List.of( ),
+                    new Block()
+                )
+            )
+        );
+    }
 }

@@ -1,7 +1,9 @@
 grammar BP;
 
 
-prog: (proc | BlankLine | NewLine)+;
+prog: (use | BlankLine | NewLine)* (proc | BlankLine | NewLine)+;
+
+use: 'use ' (Identifier | IdentifierWithDot) '\n';
 
 proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
 proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Namespace? Identifier)?;
@@ -34,6 +36,8 @@ STRING: '"' .* '"'; // @TODO replace .* with something to so greedy
 
 Identifier: [a-z][a-zA-Z0-9-]*;
 Namespace: [a-z][.a-z]* ':';
+
+IdentifierWithDot: [a-z][.a-zA-Z-]+;
 
 NewLine: '\n';
 BlankLine: ('\t' | ' ')* '\n' { skip(); };

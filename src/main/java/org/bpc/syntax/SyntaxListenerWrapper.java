@@ -224,6 +224,19 @@ public class SyntaxListenerWrapper implements BPListener {
     }
 
     @Override
+    public void enterUse(BPParser.UseContext ctx) {
+        final String namespaceString = ctx.Identifier() != null
+            ? ctx.Identifier().getText()
+            : ctx.IdentifierWithDot().getText();
+        this.listener.enterUse(namespace(namespaceString));
+    }
+
+    @Override
+    public void exitUse(BPParser.UseContext ctx) {
+        this.listener.exitUse();
+    }
+
+    @Override
     public void visitTerminal(TerminalNode node) {
 
     }

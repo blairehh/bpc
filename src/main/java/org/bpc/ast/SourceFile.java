@@ -5,17 +5,26 @@ import org.bpc.syntax.SyntaxListener;
 import java.util.*;
 
 public class SourceFile implements SyntaxListener {
+    private final List<Use> uses;
     private final List<Procedure> procedures;
     private Procedure currentProcedure;
     private Block currentBlock;
     private Stack<Assignable> assignable = new Stack<>();
     private boolean enteredProcedureStatement = false;
 
+
+    public SourceFile(List<Use> use, Procedure... procedures) {
+        this.uses = use;
+        this.procedures = List.of(procedures);
+    }
+
     public SourceFile(Procedure... procedures) {
+        this.uses = new ArrayList<>();
         this.procedures = List.of(procedures);
     }
 
     public SourceFile() {
+        this.uses = new ArrayList<>();
         this.procedures = new ArrayList<>();
         this.currentProcedure = null;
     }
@@ -129,6 +138,15 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
+    public void enterUse(List<String> namespace) {
+        this.uses.add(new Use(namespace));
+    }
+
+    @Override
+    public void exitUse() {
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
@@ -143,12 +161,13 @@ public class SourceFile implements SyntaxListener {
         return Objects.equals(this.procedures, that.procedures)
             && Objects.equals(this.currentProcedure, that.currentProcedure)
             && Objects.equals(this.currentBlock, that.currentBlock)
-            && Objects.equals(this.assignable, that.assignable);
+            && Objects.equals(this.assignable, that.assignable)
+            && Objects.equals(this.uses, that.uses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(procedures, currentProcedure, currentBlock, assignable);
+        return Objects.hash(procedures, currentProcedure, currentBlock, assignable, uses);
     }
 
     @Override
@@ -158,6 +177,7 @@ public class SourceFile implements SyntaxListener {
             .add("currentProcedure=" + currentProcedure)
             .add("currentScope=" + currentBlock)
             .add("assignable=" + assignable)
+            .add("uses=" + uses)
             .toString();
     }
 }
