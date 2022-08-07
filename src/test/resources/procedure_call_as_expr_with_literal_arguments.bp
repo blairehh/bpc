@@ -1,0 +1,3 @@
+proc foo() {
+    int bar = baz(doh(987, something("here"), true))
+}

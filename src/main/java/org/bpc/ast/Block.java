@@ -3,14 +3,14 @@ package org.bpc.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO rename to block
-public record Scope(List<Statement> statements) {
 
-    public Scope(Statement... statements) {
+public record Block(List<Statement> statements) {
+
+    public Block(Statement... statements) {
         this(List.of(statements));
     }
 
-    public Scope() {
+    public Block() {
         this(new ArrayList<>());
     }
 

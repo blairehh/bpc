@@ -28,7 +28,7 @@ class SourceFileTest {
                     "bar",
                     null,
                     List.of(),
-                    new Scope()
+                    new Block()
                 )
             )
         );
@@ -52,7 +52,7 @@ class SourceFileTest {
                     "main",
                     "int",
                     List.of(new Parameter("foo", "int")),
-                    new Scope()
+                    new Block()
                 )
             )
         );
@@ -75,7 +75,7 @@ class SourceFileTest {
                     "main",
                     null,
                     List.of(new Parameter("foo", "int")),
-                    new Scope()
+                    new Block()
                 )
             )
         );
@@ -98,7 +98,7 @@ class SourceFileTest {
                     "foo",
                     null,
                     List.of(new Parameter("bar", "int")),
-                    new Scope(
+                    new Block(
                         new VariableDeclaration(
                             "baz",
                             "dec"
@@ -127,7 +127,7 @@ class SourceFileTest {
                     "foo-bar",
                     "int",
                     List.of(new Parameter("fo", "fo")),
-                    new Scope(
+                    new Block(
                         new VariableDeclaration(
                             "num",
                             "int",
@@ -138,6 +138,36 @@ class SourceFileTest {
             )
         );
     }
+
+    @Test
+    void testVariableWithLargeNumberAssignment() {
+        String code = read("variable_with_large_number_assignment.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "foo-bar",
+                    "int",
+                    List.of(new Parameter("fo", "fo")),
+                    new Block(
+                        new VariableDeclaration(
+                            "num",
+                            "int",
+                            new NumberExpr("1234567890")
+                        )
+                    )
+                )
+            )
+        );
+    }
+
 
     @Test
     void testVariableWithPrimitiveTypeAssignments() {
@@ -156,7 +186,7 @@ class SourceFileTest {
                     "foo-bar",
                     "int",
                     List.of(),
-                    new Scope(
+                    new Block(
                         new VariableDeclaration(
                             "num",
                             "int",
@@ -200,7 +230,7 @@ class SourceFileTest {
                     "foo",
                     null,
                     List.of(),
-                    new Scope(
+                    new Block(
                         new ProcedureCall(
                             "bar",
                             List.of(
@@ -233,7 +263,7 @@ class SourceFileTest {
                     "foo",
                     null,
                     List.of(),
-                    new Scope(
+                    new Block(
                         new VariableDeclaration(
                             "bar",
                             "int",
@@ -241,6 +271,48 @@ class SourceFileTest {
                                 "baz",
                                 List.of(
                                     new ProcedureCall("doh", List.of())
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    @Test
+    void testProcedureCallAsExprWithLiteralArguments() {
+        String code = read("procedure_call_as_expr_with_literal_arguments.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "foo",
+                    null,
+                    List.of(),
+                    new Block(
+                        new VariableDeclaration(
+                            "bar",
+                            "int",
+                            new ProcedureCall(
+                                "baz",
+                                List.of(
+                                    new ProcedureCall(
+                                        "doh",
+                                        List.of(
+                                            new NumberExpr("987"),
+                                            new ProcedureCall("something", List.of(new StringExpr("here"))),
+                                            new BoolExpr("true")
+                                        )
+                                    )
                                 )
                             )
                         )

@@ -21,7 +21,7 @@ booleanExpr: BOOLEAN;
 charExpr: CHAR;
 stringExpr: STRING;
 
-NUMBER: [0-9];
+NUMBER: [0-9]+;
 BOOLEAN: 'true' | 'false';
 CHAR: '\'' . '\'';
 STRING: '"' .* '"'; // @TODO replace .* with something to so greedy

@@ -7,7 +7,7 @@ import java.util.*;
 public class SourceFile implements SyntaxListener {
     private final List<Procedure> procedures;
     private Procedure currentProcedure;
-    private Scope currentScope;
+    private Block currentBlock;
     private Stack<Assignable> assignable = new Stack<>();
     private boolean enteredProcedureStatement = false;
 
@@ -23,14 +23,14 @@ public class SourceFile implements SyntaxListener {
     @Override
     public void startProcedureDefinition(String name, String returnType) {
         this.currentProcedure = new Procedure(name, returnType);
-        this.currentScope = this.currentProcedure.scope();
+        this.currentBlock = this.currentProcedure.block();
         this.procedures.add(this.currentProcedure);
     }
 
     @Override
     public void exitProcedure() {
         this.currentProcedure = null;
-        this.currentScope = null;
+        this.currentBlock = null;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class SourceFile implements SyntaxListener {
     public void enterVariableDeclaration(String name, String type) {
         VariableDeclaration declaration = new VariableDeclaration(name, type);
         this.assignable.push(declaration);
-        this.currentScope.addStatement(declaration);
+        this.currentBlock.addStatement(declaration);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SourceFile implements SyntaxListener {
     public void enterProcedureCall(String name) {
         ProcedureCall procedureCall = new ProcedureCall(name);
         this.assignable.push(procedureCall);
-        this.currentScope.addStatement(procedureCall);
+        this.currentBlock.addStatement(procedureCall);
         this.enteredProcedureStatement = true;
     }
 
@@ -118,13 +118,13 @@ public class SourceFile implements SyntaxListener {
 
         return Objects.equals(this.procedures, that.procedures)
             && Objects.equals(this.currentProcedure, that.currentProcedure)
-            && Objects.equals(this.currentScope, that.currentScope)
+            && Objects.equals(this.currentBlock, that.currentBlock)
             && Objects.equals(this.assignable, that.assignable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(procedures, currentProcedure, currentScope, assignable);
+        return Objects.hash(procedures, currentProcedure, currentBlock, assignable);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class SourceFile implements SyntaxListener {
         return new StringJoiner(", ", SourceFile.class.getSimpleName() + "[", "]")
             .add("procedures=" + procedures)
             .add("currentProcedure=" + currentProcedure)
-            .add("currentScope=" + currentScope)
+            .add("currentScope=" + currentBlock)
             .add("assignable=" + assignable)
             .toString();
     }
