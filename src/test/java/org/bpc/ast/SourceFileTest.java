@@ -101,7 +101,8 @@ class SourceFileTest {
                     new Block(
                         new VariableDeclaration(
                             "baz",
-                            "dec"
+                            "dec",
+                            new NumberExpr(0)
                         ),
                         new ProcedureCall("doh")
                     )
@@ -432,6 +433,71 @@ class SourceFileTest {
                             new NumberExpr(5)
                         )
                     )
+                )
+            )
+        );
+    }
+
+    @Test
+    void testProcThatJustCallsAnotherProc() {
+        String code = read("proc_that_just_calls_proc.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new ProcedureCall("foo")
+                    )
+                )
+            )
+        );
+    }
+
+
+    @Test
+    void testMultipleProcs() {
+        String code = read("multiple_procs.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new ProcedureCall("foo")
+                    )
+                ),
+                new Procedure(
+                    "foo",
+                    null,
+                    List.of(),
+                    new Block(
+                        new ProcedureCall("bar")
+                    )
+                ),
+                new Procedure(
+                    "bar",
+                    null,
+                    List.of(),
+                    new Block()
                 )
             )
         );

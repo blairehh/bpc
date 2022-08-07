@@ -7,12 +7,12 @@ proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStateme
 proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Identifier)?;
 parameter: Identifier ' ' Identifier;
 
-procedureStatement: variableDeclaration | procedureCall;
+procedureStatement: variableDeclaration | procedureCall '\n';
 
 returnStatement: Indentation 'return ' expr;
 
-variableDeclaration: Indentation Identifier ' ' Identifier ( ' = ' expr '\n' | '\n');
-procedureCall: Indentation procedureCallExpr '\n';
+variableDeclaration: Indentation Identifier ' ' Identifier ' = ' expr;
+procedureCall: Indentation procedureCallExpr;
 procedureCallExpr: Identifier('(' (expr (', ' expr)*) ')' | '()');
 
 expr: literal | procedureCallExpr;

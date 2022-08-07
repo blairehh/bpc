@@ -1,4 +1,4 @@
 proc foo(int bar) {
-    dec baz
+    dec baz = 0
     doh()
 }
