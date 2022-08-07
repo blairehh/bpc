@@ -2,16 +2,14 @@ package org.bpc.ast;
 
 import org.bpc.syntax.SyntaxListener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class SourceFile implements SyntaxListener {
     private final List<Procedure> procedures;
     private Procedure currentProcedure;
     private Scope currentScope;
-    private Assignable currentAssignable;
+    private Stack<Assignable> assignable = new Stack<>();
+    private boolean enteredProcedureStatement = false;
 
     public SourceFile(Procedure... procedures) {
         this.procedures = List.of(procedures);
@@ -48,39 +46,62 @@ public class SourceFile implements SyntaxListener {
     @Override
     public void enterVariableDeclaration(String name, String type) {
         VariableDeclaration declaration = new VariableDeclaration(name, type);
-        this.currentAssignable = declaration;
+        this.assignable.push(declaration);
         this.currentScope.addStatement(declaration);
     }
 
     @Override
     public void exitProcedureDefinition(String name, String returnType) {
-        this.currentAssignable = null;
+        if (!this.assignable.isEmpty()) {
+            this.assignable.pop();
+        }
     }
 
     @Override
     public void exitVariableDeclaration() {
-        this.currentAssignable = null;
+        this.assignable.pop();
     }
 
     @Override
     public void enterProcedureCall(String name) {
         ProcedureCall procedureCall = new ProcedureCall(name);
-        this.currentAssignable = procedureCall;
+        this.assignable.push(procedureCall);
         this.currentScope.addStatement(procedureCall);
+        this.enteredProcedureStatement = true;
     }
 
     @Override
     public void exitProcedureCall() {
-        this.currentAssignable = null;
+        this.enteredProcedureStatement = false;
+        if (!this.assignable.isEmpty()) {
+            this.assignable.pop();
+        }
     }
 
     @Override
     public void enterExpr(Expr expr) {
-        this.currentAssignable.assign(expr);
+        this.enteredProcedureStatement = false;
+        this.assignable.peek().assign(expr);
     }
 
     @Override
     public void exitExpr() {
+    }
+
+    @Override
+    public void enterProcedureExpr(String name) {
+        if (this.enteredProcedureStatement) {
+            this.enteredProcedureStatement = false;
+            return;
+        }
+        ProcedureCall call = new ProcedureCall(name);
+        this.assignable.peek().assign(call);
+        this.assignable.push(call);
+    }
+
+    @Override
+    public void exitProcedureExpr() {
+        this.assignable.pop();
     }
 
     @Override
@@ -98,12 +119,12 @@ public class SourceFile implements SyntaxListener {
         return Objects.equals(this.procedures, that.procedures)
             && Objects.equals(this.currentProcedure, that.currentProcedure)
             && Objects.equals(this.currentScope, that.currentScope)
-            && Objects.equals(this.currentAssignable, that.currentAssignable);
+            && Objects.equals(this.assignable, that.assignable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(procedures, currentProcedure, currentScope, currentAssignable);
+        return Objects.hash(procedures, currentProcedure, currentScope, assignable);
     }
 
     @Override
@@ -112,7 +133,7 @@ public class SourceFile implements SyntaxListener {
             .add("procedures=" + procedures)
             .add("currentProcedure=" + currentProcedure)
             .add("currentScope=" + currentScope)
-            .add("currentAssignable=" + currentAssignable)
+            .add("assignable=" + assignable)
             .toString();
     }
 }
