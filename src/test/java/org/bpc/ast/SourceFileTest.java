@@ -104,7 +104,7 @@ class SourceFileTest {
                             new Type("dec"),
                             new NumberExpr(0)
                         ),
-                        new ProcedureCall("doh")
+                        new ProcedureCall(new Identifier("doh"))
                     )
                 )
             )
@@ -233,7 +233,7 @@ class SourceFileTest {
                     List.of(),
                     new Block(
                         new ProcedureCall(
-                            "bar",
+                            new Identifier("bar"),
                             List.of(
                                 new NumberExpr(1),
                                 new BoolExpr(false),
@@ -269,9 +269,9 @@ class SourceFileTest {
                             "bar",
                             new Type("int"),
                             new ProcedureCall(
-                                "baz",
+                                new Identifier("baz"),
                                 List.of(
-                                    new ProcedureCall("doh", List.of())
+                                    new ProcedureCall(new Identifier("doh"), List.of())
                                 )
                             )
                         )
@@ -304,13 +304,13 @@ class SourceFileTest {
                             "bar",
                             new Type("int"),
                             new ProcedureCall(
-                                "baz",
+                                new Identifier("baz"),
                                 List.of(
                                     new ProcedureCall(
-                                        "doh",
+                                        new Identifier("doh"),
                                         List.of(
                                             new NumberExpr(987),
-                                            new ProcedureCall("something", List.of(new StringExpr("here"))),
+                                            new ProcedureCall(new Identifier("something"), List.of(new StringExpr("here"))),
                                             new BoolExpr(true)
                                         )
                                     )
@@ -456,7 +456,7 @@ class SourceFileTest {
                     null,
                     List.of(),
                     new Block(
-                        new ProcedureCall("foo")
+                        new ProcedureCall(new Identifier("foo"))
                     )
                 )
             )
@@ -482,7 +482,7 @@ class SourceFileTest {
                     null,
                     List.of(),
                     new Block(
-                        new ProcedureCall("foo")
+                        new ProcedureCall(new Identifier("foo"))
                     )
                 ),
                 new Procedure(
@@ -490,7 +490,7 @@ class SourceFileTest {
                     null,
                     List.of(),
                     new Block(
-                        new ProcedureCall("bar")
+                        new ProcedureCall(new Identifier("bar"))
                     )
                 ),
                 new Procedure(
@@ -526,7 +526,7 @@ class SourceFileTest {
                             new Type("int"),
                             new NumberExpr(8)
                         ),
-                        new ProcedureCall("print", List.of(new Identifier("number")))
+                        new ProcedureCall(new Identifier("print"), List.of(new Identifier("number")))
                     )
                 )
             )
@@ -551,7 +551,38 @@ class SourceFileTest {
                     new Type("tcp-server", List.of("sock")),
                     List.of(),
                     new Block(
-                        new ProcedureCall("run")
+                        new ProcedureCall(new Identifier("run"))
+                    )
+                )
+            )
+        );
+    }
+
+    @Test
+    void testProcCallAndVariableNamespaced() {
+        String code = read("proc_call_and_variable_namespaced.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new ProcedureCall(
+                            new Identifier("println", List.of("console")),
+                            List.of(
+                                new Identifier("name", List.of("os")),
+                                new ProcedureCall(new Identifier("bar", List.of("foo")))
+                            )
+                        )
                     )
                 )
             )

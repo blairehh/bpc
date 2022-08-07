@@ -21,11 +21,11 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void startProcedureDefinition(String name, String returnType, String returnTypeNamespace) {
-        List<String> namespace = Optional.ofNullable(returnTypeNamespace)
-            .map((value) -> List.of(value.split("\\.")))
-            .orElse(List.of());
-        this.currentProcedure = new Procedure(name, returnType == null ? null : new Type(returnType, namespace));
+    public void startProcedureDefinition(String name, String returnType, List<String> namespace) {
+        this.currentProcedure = new Procedure(
+            name,
+            returnType == null ? null : new Type(returnType, namespace)
+        );
         this.currentBlock = this.currentProcedure.block();
         this.procedures.add(this.currentProcedure);
     }
@@ -66,8 +66,8 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void enterProcedureCall(String name) {
-        ProcedureCall procedureCall = new ProcedureCall(name);
+    public void enterProcedureCall(String name, List<String> namespace) {
+        ProcedureCall procedureCall = new ProcedureCall(new Identifier(name, namespace));
         this.assignable.push(procedureCall);
         this.currentBlock.addStatement(procedureCall);
         this.enteredProcedureStatement = true;
@@ -92,12 +92,12 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void enterProcedureExpr(String name) {
+    public void enterProcedureExpr(String name, List<String> namespace) {
         if (this.enteredProcedureStatement) {
             this.enteredProcedureStatement = false;
             return;
         }
-        ProcedureCall call = new ProcedureCall(name);
+        ProcedureCall call = new ProcedureCall(new Identifier(name, namespace));
         this.assignable.peek().assign(call);
         this.assignable.push(call);
     }
@@ -120,8 +120,8 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void enterIdentifier(String name) {
-        this.assignable.peek().assign(new Identifier(name));
+    public void enterIdentifier(String name, List<String> namespace) {
+        this.assignable.peek().assign(new Identifier(name, namespace));
     }
 
     @Override

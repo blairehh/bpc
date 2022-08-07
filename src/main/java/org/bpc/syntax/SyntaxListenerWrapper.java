@@ -22,6 +22,19 @@ public class SyntaxListenerWrapper implements BPListener {
         this.listener = listener;
     }
 
+    public List<String> namespace(String value) {
+        return Optional.ofNullable(value)
+            .map((content) -> List.of(content.replace(":", "").split("\\.")))
+            .orElse(List.of());
+    }
+
+    public List<String> namespace(TerminalNode node) {
+        return Optional.ofNullable(node)
+            .map(ParseTree::getText)
+            .map((value) -> List.of(value.replace(":", "").split("\\.")))
+            .orElse(List.of());
+    }
+
     @Override
     public void enterProg(BPParser.ProgContext ctx) {
 
@@ -47,7 +60,7 @@ public class SyntaxListenerWrapper implements BPListener {
         this.listener.startProcedureDefinition(
             ctx.Identifier().get(0).getText(),
             Optional.ofNullable(ctx.Identifier(1)).map(TerminalNode::getText).orElse(null),
-            Optional.ofNullable(ctx.Namespace()).map((value) -> value.getText().replace(":", "")).orElse(null)
+            namespace(ctx.Namespace())
         );
     }
 
@@ -92,7 +105,10 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void enterProcedureCall(BPParser.ProcedureCallContext ctx) {
-        this.listener.enterProcedureCall(ctx.procedureCallExpr().Identifier().getText());
+        this.listener.enterProcedureCall(
+            ctx.procedureCallExpr().Identifier().getText(),
+            namespace(ctx.procedureCallExpr().Namespace())
+        );
     }
 
     @Override
@@ -102,14 +118,15 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void enterProcedureCallExpr(BPParser.ProcedureCallExprContext ctx) {
-        this.listener.enterProcedureExpr(ctx.Identifier().getText());
-       // this.listener.enterProcedureCall(ctx.Identifier().getText());
+        this.listener.enterProcedureExpr(
+            ctx.Identifier().getText(),
+            namespace(ctx.Namespace())
+        );
     }
 
     @Override
     public void exitProcedureCallExpr(BPParser.ProcedureCallExprContext ctx) {
         this.listener.exitProcedureExpr();
-    //    this.listener.exitProcedureCall();
     }
 
     @Override
@@ -190,7 +207,7 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void enterIdentifier(BPParser.IdentifierContext ctx) {
-        this.listener.enterIdentifier(ctx.Identifier().getText());
+        this.listener.enterIdentifier(ctx.Identifier().getText(), namespace(ctx.Namespace()));
     }
 
     @Override

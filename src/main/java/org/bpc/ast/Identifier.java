@@ -1,4 +1,9 @@
 package org.bpc.ast;
 
-public record Identifier(String name) implements Expr {
+import java.util.List;
+
+public record Identifier(String name, List<String> namespace) implements Expr {
+    public Identifier(String name) {
+        this(name, List.of());
+    }
 }

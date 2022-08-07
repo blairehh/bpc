@@ -13,12 +13,12 @@ returnStatement: Indentation 'return ' expr;
 
 variableDeclaration: Indentation Identifier ' ' Identifier ' = ' expr;
 procedureCall: Indentation procedureCallExpr;
-procedureCallExpr: Identifier('(' (expr (', ' expr)*) ')' | '()');
+procedureCallExpr: Namespace? Identifier('(' (expr (', ' expr)*) ')' | '()');
 
 expr: literal | procedureCallExpr | identifier;
 literal: numberExpr | booleanExpr | charExpr | stringExpr;
 
-identifier: Identifier;
+identifier: Namespace? Identifier;
 
 numberExpr: NUMBER;
 booleanExpr: BOOLEAN;
