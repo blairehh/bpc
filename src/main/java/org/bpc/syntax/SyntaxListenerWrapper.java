@@ -74,7 +74,11 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void enterParameter(BPParser.ParameterContext ctx) {
-        this.listener.startParameter(ctx.Identifier(1).getText(), ctx.Identifier(0).getText());
+        this.listener.startParameter(
+            ctx.Identifier(1).getText(),
+            ctx.Identifier(0).getText(),
+            namespace(ctx.Namespace())
+        );
     }
 
     @Override

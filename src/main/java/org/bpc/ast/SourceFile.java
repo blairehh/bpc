@@ -37,8 +37,8 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void startParameter(String name, String type) {
-        Parameter parameter = new Parameter(name, type);
+    public void startParameter(String name, String type, List<String> namespace) {
+        Parameter parameter = new Parameter(name, new Type(type, namespace));
         this.currentProcedure.parameters().add(parameter);
     }
 

@@ -5,7 +5,7 @@ prog: (proc | BlankLine | NewLine)+;
 
 proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
 proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Namespace? Identifier)?;
-parameter: Identifier ' ' Identifier;
+parameter: Namespace? Identifier ' ' Identifier;
 
 procedureStatement: variableDeclaration | procedureCall '\n';
 

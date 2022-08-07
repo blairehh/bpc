@@ -12,7 +12,7 @@ public interface SyntaxListener {
     default void startProcedureDefinition(String name, String returnType, List<String> namespace) {}
     default void exitProcedureDefinition(String name, String returnType) {}
 
-    default void startParameter(String name, String type) {}
+    default void startParameter(String name, String type, List<String> namespace) {}
     default void exitParameter(String name, String type) {}
 
     default void enterVariableDeclaration(String name, String type, List<String> namespace) {}

@@ -51,7 +51,7 @@ class SourceFileTest {
                 new Procedure(
                     "main",
                     new Type("int"),
-                    List.of(new Parameter("foo", "int")),
+                    List.of(new Parameter("foo", new Type("int"))),
                     new Block()
                 )
             )
@@ -74,7 +74,7 @@ class SourceFileTest {
                 new Procedure(
                     "main",
                     null,
-                    List.of(new Parameter("foo", "int")),
+                    List.of(new Parameter("foo", new Type("int"))),
                     new Block()
                 )
             )
@@ -97,7 +97,7 @@ class SourceFileTest {
                 new Procedure(
                     "foo",
                     null,
-                    List.of(new Parameter("bar", "int")),
+                    List.of(new Parameter("bar", new Type("int"))),
                     new Block(
                         new VariableDeclaration(
                             "baz",
@@ -127,7 +127,7 @@ class SourceFileTest {
                 new Procedure(
                     "foo-bar",
                     new Type("int"),
-                    List.of(new Parameter("fo", "fo")),
+                    List.of(new Parameter("fo", new Type("fo"))),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -156,7 +156,7 @@ class SourceFileTest {
                 new Procedure(
                     "foo-bar",
                     new Type("int"),
-                    List.of(new Parameter("fo", "fo")),
+                    List.of(new Parameter("fo", new Type("fo"))),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -613,6 +613,32 @@ class SourceFileTest {
                             new NumberExpr(0)
                         )
                     )
+                )
+            )
+        );
+    }
+
+    @Test
+    void testProcWithNamespacedParameters() {
+        String code = read("proc_with_namespaced_parameters.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(
+                        new Parameter("fd", new Type("file-descriptor", List.of("io"))),
+                        new Parameter("mode", new Type("int"))
+                    ),
+                    new Block()
                 )
             )
         );
