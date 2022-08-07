@@ -1,0 +1,4 @@
+proc foo(int bar) {
+    dec baz
+    doh()
+}

@@ -1,0 +1,3 @@
+proc foo() {
+    bar(1, true, "oi")
+}

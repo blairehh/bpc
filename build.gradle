@@ -1,0 +1,66 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
+    }
+}
+
+
+plugins {
+    id 'java'
+    id 'antlr'
+    id 'idea'
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+dependencies {
+    antlr "org.antlr:antlr4:4.9.3"
+    implementation "org.antlr:antlr4-runtime:4.9.3"
+    testImplementation(platform('org.junit:junit-bom:5.7.0'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+}
+generateGrammarSource {
+    maxHeapSize = "128m"
+    outputDirectory new File("${project.buildDir}/generated-src/antlr/main/org/bpc/grammar/")
+    arguments += ['-package', 'org.bpc.grammar', '-visitor', '-listener']
+}
+compileJava.dependsOn generateGrammarSource
+sourceSets {
+    generated {
+        java.srcDir 'generated-src/antlr/main/'
+    }
+}
+compileJava.source sourceSets.generated.java, sourceSets.main.java
+clean{
+    delete "generated-src"
+}
+idea {
+    module {
+        sourceDirs += file("generated-src/antlr/main/")
+    }
+}
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "org.bcc.Main"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
