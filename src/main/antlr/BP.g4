@@ -1,7 +1,7 @@
 grammar BP;
 
 
-prog: WS* (proc | BlankLine | NewLine)+;
+prog: (proc | BlankLine | NewLine)+;
 
 proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
 proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Identifier)?;
@@ -38,5 +38,3 @@ NewLine: '\n';
 BlankLine: ('\t' | ' ')* '\n' { skip(); };
 Indentation:  ('\t' | ' ')+;
 
-
-WS:  ('\t' | ' ' | '\r' | '\n' | '\u000C') { skip(); };
