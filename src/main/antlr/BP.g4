@@ -3,11 +3,13 @@ grammar BP;
 
 prog: WS* proc EOF;
 
-proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* '}';
+proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | '\n')* '}';
 proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Identifier)?;
 parameter: Identifier ' ' Identifier;
 
 procedureStatement: variableDeclaration | procedureCall;
+
+returnStatement: Indentation 'return ' expr;
 
 variableDeclaration: Indentation Identifier ' ' Identifier ( ' = ' expr '\n' | '\n');
 procedureCall: Indentation procedureCallExpr '\n';

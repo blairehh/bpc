@@ -176,6 +176,16 @@ public class SyntaxListenerWrapper implements BPListener {
     }
 
     @Override
+    public void enterReturnStatement(BPParser.ReturnStatementContext ctx) {
+        this.listener.enterReturnStatement();
+    }
+
+    @Override
+    public void exitReturnStatement(BPParser.ReturnStatementContext ctx) {
+        this.listener.exitReturnStatement();
+    }
+
+    @Override
     public void visitTerminal(TerminalNode node) {
 
     }

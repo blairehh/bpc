@@ -410,5 +410,31 @@ class SourceFileTest {
         );
     }
 
+    @Test
+    void testProcWithReturnStatement() {
+        String code = read("proc_with_return_statement.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "foo",
+                    null,
+                    List.of(),
+                    new Block(
+                        new ReturnStatement(
+                            new NumberExpr(5)
+                        )
+                    )
+                )
+            )
+        );
+    }
 
 }

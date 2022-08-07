@@ -105,6 +105,18 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
+    public void enterReturnStatement() {
+        ReturnStatement returnStatement = new ReturnStatement(new ExprRef());
+        this.assignable.push(returnStatement);
+        this.currentBlock.addStatement(returnStatement);
+    }
+
+    @Override
+    public void exitReturnStatement() {
+        this.assignable.pop();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
