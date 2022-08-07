@@ -35,7 +35,7 @@ CHAR: '\'' . '\'';
 STRING: '"' .* '"'; // @TODO replace .* with something to so greedy
 
 Identifier: [a-z][a-zA-Z0-9-]*;
-Namespace: [a-z][.a-z]* ':';
+Namespace: [a-z][.a-z-]* ':';
 
 IdentifierWithDot: [a-z][.a-zA-Z-]+;
 

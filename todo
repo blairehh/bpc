@@ -2,4 +2,4 @@ support hexadecimal
 make char use hexadecimal or int
 sequences
 indexes
-support namespaces with dashes
+test namespaces with dots and dashes
