@@ -95,7 +95,11 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void enterVariableDeclaration(BPParser.VariableDeclarationContext ctx) {
-        this.listener.enterVariableDeclaration(ctx.Identifier(1).getText(), ctx.Identifier().get(0).getText());
+        this.listener.enterVariableDeclaration(
+            ctx.Identifier(1).getText(),
+            ctx.Identifier().get(0).getText(),
+            namespace(ctx.Namespace())
+        );
     }
 
     @Override

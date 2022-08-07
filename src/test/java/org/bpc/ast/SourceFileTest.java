@@ -588,4 +588,33 @@ class SourceFileTest {
             )
         );
     }
+
+    @Test
+    void testVariableDeclarationWithNamespacedType() {
+        String code = read("variable_declaration_with_namespaced_type.bp");
+        SyntaxCompilation compilation = new SyntaxCompiler()
+            .compile(code);
+
+        SourceFile sourceFile = new SourceFile();
+        compilation.walk(sourceFile);
+
+        System.out.println(sourceFile);
+        assertThat(compilation.hasErrors()).isFalse();
+        assertThat(sourceFile).isEqualTo(
+            new SourceFile(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new VariableDeclaration(
+                            "fd",
+                            new Type("file-descriptor", List.of("io")),
+                            new NumberExpr(0)
+                        )
+                    )
+                )
+            )
+        );
+    }
 }

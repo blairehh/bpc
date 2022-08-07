@@ -15,7 +15,7 @@ public interface SyntaxListener {
     default void startParameter(String name, String type) {}
     default void exitParameter(String name, String type) {}
 
-    default void enterVariableDeclaration(String name, String type) {}
+    default void enterVariableDeclaration(String name, String type, List<String> namespace) {}
     default void exitVariableDeclaration() {};
 
     default void enterProcedureCall(String name, List<String> namespace) {}

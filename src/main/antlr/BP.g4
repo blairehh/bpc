@@ -11,7 +11,7 @@ procedureStatement: variableDeclaration | procedureCall '\n';
 
 returnStatement: Indentation 'return ' expr;
 
-variableDeclaration: Indentation Identifier ' ' Identifier ' = ' expr;
+variableDeclaration: Indentation Namespace? Identifier ' ' Identifier ' = ' expr;
 procedureCall: Indentation procedureCallExpr;
 procedureCallExpr: Namespace? Identifier('(' (expr (', ' expr)*) ')' | '()');
 

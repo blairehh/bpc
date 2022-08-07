@@ -47,8 +47,8 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void enterVariableDeclaration(String name, String type) {
-        VariableDeclaration declaration = new VariableDeclaration(name, new Type(type));
+    public void enterVariableDeclaration(String name, String type, List<String> namespace) {
+        VariableDeclaration declaration = new VariableDeclaration(name, new Type(type, namespace));
         this.assignable.push(declaration);
         this.currentBlock.addStatement(declaration);
     }
