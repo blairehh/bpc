@@ -1,7 +1,9 @@
 package org.bpc.ast;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.stream.Stream;
 
 // @TODO replace with record
 public final class VariableDeclaration implements Statement, Assignable {
@@ -32,6 +34,12 @@ public final class VariableDeclaration implements Statement, Assignable {
 
     public Type type() {
         return type;
+    }
+
+    @Override
+    public List<Type> getTypesUsed() {
+        return Stream.concat(Stream.of(this.type), this.expr.getTypesUsed().stream())
+            .toList();
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.bpc.compile.errors.ModuleNotFound;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,7 +30,7 @@ class MissingModuleCheckTest {
             )
         );
 
-        List<CompilationError> errors = check.check(job);
+        Set<CompilationError> errors = check.check(job);
 
         assertThat(errors).isEmpty();
     }
@@ -46,7 +47,7 @@ class MissingModuleCheckTest {
             )
         );
 
-        List<CompilationError> errors = check.check(job);
+        Set<CompilationError> errors = check.check(job);
 
         assertThat(errors).containsExactly(
             new ModuleNotFound(new Namespace("apache"))

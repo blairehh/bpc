@@ -18,4 +18,9 @@ public record Block(List<Statement> statements) {
         this.statements.add(statement);
     }
 
+    public List<Type> getTypesUsed() {
+        return this.statements.stream()
+            .flatMap((statement) -> statement.getTypesUsed().stream())
+            .toList();
+    }
 }

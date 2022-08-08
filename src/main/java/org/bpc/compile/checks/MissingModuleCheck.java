@@ -9,11 +9,13 @@ import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ModuleNotFound;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MissingModuleCheck {
-    public List<CompilationError> check(CompileJob job) {
+    public Set<CompilationError> check(CompileJob job) {
         final Function<CodeFile, Stream<CompilationError>> checkFile = (file) -> file.uses()
             .stream()
             .flatMap((use) -> missingModule(use, job.sdk().modules()).map((ns) -> (CompilationError)new ModuleNotFound(ns)));
@@ -21,7 +23,7 @@ public class MissingModuleCheck {
         return job.files()
             .stream()
             .flatMap(checkFile)
-            .toList();
+            .collect(Collectors.toSet());
     }
 
 

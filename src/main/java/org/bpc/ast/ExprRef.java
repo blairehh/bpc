@@ -1,9 +1,10 @@
 package org.bpc.ast;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class ExprRef implements Assignable{
+public class ExprRef implements Assignable {
     private Expr expr;
 
     public ExprRef(Expr expr) {
@@ -16,6 +17,10 @@ public class ExprRef implements Assignable{
 
     public Expr getExpr() {
         return expr;
+    }
+
+    public List<Type> getTypesUsed() {
+        return expr.getTypesUsed();
     }
 
     @Override
