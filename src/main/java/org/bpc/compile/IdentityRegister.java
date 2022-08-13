@@ -1,6 +1,7 @@
 package org.bpc.compile;
 
 import org.bpc.ast.Identifier;
+import org.bpc.ast.Procedure;
 import org.bpc.ast.Type;
 import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ConflictingDeclaration;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 
 public class IdentityRegister {
     public record TypeRegistree(Identifier canonical, Identifier referenced) { }
+    public record ProcedureRegistree(Identifier canonical, Identifier referenced) {}
 
     public static TypeRegistree registree(Type type) {
         return new TypeRegistree(
@@ -23,19 +25,24 @@ public class IdentityRegister {
         return new TypeRegistree(canonical, referenced);
     }
 
-    private final Set<TypeRegistree> types;
-    private final Map<Identifier, Identifier> procedures;
+    public static ProcedureRegistree procedure(Identifier canonical, Identifier referenced) {
+        return new ProcedureRegistree(canonical, referenced);
+    }
 
-    public IdentityRegister(Set<TypeRegistree> types, Map<Identifier, Identifier> procedures) {
+
+    private final Set<TypeRegistree> types;
+    private final Set<ProcedureRegistree> procedures;
+
+    public IdentityRegister(Set<TypeRegistree> types, Set<ProcedureRegistree> procedures) {
         this.types = types;
         this.procedures = procedures;
     }
 
-    public IdentityRegister(SDK sdk, Set<TypeRegistree> types, Map<Identifier, Identifier> procedures) {
+    public IdentityRegister(SDK sdk, Set<TypeRegistree> types, Set<ProcedureRegistree> procedures) {
         this.types = Stream.concat(sdk.baseIdentityRegistry().types.stream(), types.stream())
             .collect(Collectors.toSet());
-        this.procedures = Stream.concat(sdk.baseIdentityRegistry().procedures.entrySet().stream(), procedures.entrySet().stream())
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        this.procedures = Stream.concat(sdk.baseIdentityRegistry().procedures.stream(), procedures.stream())
+            .collect(Collectors.toSet());
     }
 
     public Optional<Identifier> getReferencedTypeFromCanonical(Identifier canonical) {
@@ -61,12 +68,18 @@ public class IdentityRegister {
         return Optional.empty();
     }
 
+    public boolean hasReferencedProcedure(Identifier identifier) {
+        return this.procedures
+            .stream()
+            .anyMatch((type) -> type.referenced().equals(identifier));
+    }
+
     public Optional<CompilationError> referenceCanonicalProcedureAs(Identifier canonical, Identifier referenced) {
-        final Identifier existing = this.procedures.get(referenced);
-        if (existing != null) {
+        final boolean exists = this.hasReferencedProcedure(referenced);
+        if (exists) {
             return Optional.of(new ConflictingDeclaration(referenced));
         }
-        this.procedures.put(canonical, referenced);
+        this.procedures.add(new ProcedureRegistree(canonical, referenced));
         return Optional.empty();
     }
 

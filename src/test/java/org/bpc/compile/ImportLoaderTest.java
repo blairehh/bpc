@@ -7,11 +7,11 @@ import org.bpc.ast.Type;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bpc.compile.IdentityRegister.procedure;
 import static org.bpc.compile.IdentityRegister.registree;
 
 class ImportLoaderTest {
@@ -80,9 +80,11 @@ class ImportLoaderTest {
                     new Identifier("file-descriptor", new Namespace("io", "filesystem"))
                 )
             ),
-            Map.of(
-                new Identifier("write", new Namespace("disk")),
-                new Identifier("write", new Namespace("io", "filesystem"))
+            Set.of(
+                procedure(
+                    new Identifier("write", new Namespace("disk")),
+                    new Identifier("write", new Namespace("io", "filesystem"))
+                )
             )
         ));
     }

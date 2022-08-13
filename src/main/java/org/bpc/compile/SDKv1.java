@@ -39,7 +39,7 @@ public class SDKv1 implements SDK {
             .stream()
             .map(IdentityRegister::registree)
             .collect(Collectors.toSet());
-        return new IdentityRegister(new HashSet<>(types), new HashMap<>());
+        return new IdentityRegister(new HashSet<>(types), new HashSet<>());
     }
 
     @Override
