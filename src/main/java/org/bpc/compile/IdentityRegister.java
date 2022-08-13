@@ -10,28 +10,28 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class IdentityRegister {
-    public record Registree(Identifier canonical, Identifier referenced) { }
+    public record TypeRegistree(Identifier canonical, Identifier referenced) { }
 
-    public static Registree registree(Type type) {
-        return new Registree(
+    public static TypeRegistree registree(Type type) {
+        return new TypeRegistree(
             new Identifier(type.name(), type.namespace()),
             new Identifier(type.name(), type.namespace())
         );
     }
 
-    public static Registree registree(Identifier canonical, Identifier referenced) {
-        return new Registree(canonical, referenced);
+    public static TypeRegistree registree(Identifier canonical, Identifier referenced) {
+        return new TypeRegistree(canonical, referenced);
     }
 
-    private final Set<Registree> types;
+    private final Set<TypeRegistree> types;
     private final Map<Identifier, Identifier> procedures;
 
-    public IdentityRegister(Set<Registree> types, Map<Identifier, Identifier> procedures) {
+    public IdentityRegister(Set<TypeRegistree> types, Map<Identifier, Identifier> procedures) {
         this.types = types;
         this.procedures = procedures;
     }
 
-    public IdentityRegister(SDK sdk, Set<Registree> types, Map<Identifier, Identifier> procedures) {
+    public IdentityRegister(SDK sdk, Set<TypeRegistree> types, Map<Identifier, Identifier> procedures) {
         this.types = Stream.concat(sdk.baseIdentityRegistry().types.stream(), types.stream())
             .collect(Collectors.toSet());
         this.procedures = Stream.concat(sdk.baseIdentityRegistry().procedures.entrySet().stream(), procedures.entrySet().stream())
@@ -42,7 +42,7 @@ public class IdentityRegister {
         return this.types
             .stream()
             .filter((type) -> type.canonical().equals(canonical))
-            .map(Registree::referenced)
+            .map(TypeRegistree::referenced)
             .findFirst();
     }
 
@@ -57,7 +57,7 @@ public class IdentityRegister {
         if (exists) {
             return Optional.of(new ConflictingDeclaration(referenced));
         }
-        this.types.add(new Registree(canonical, referenced));
+        this.types.add(new TypeRegistree(canonical, referenced));
         return Optional.empty();
     }
 

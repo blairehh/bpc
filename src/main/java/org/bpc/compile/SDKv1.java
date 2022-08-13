@@ -35,7 +35,7 @@ public class SDKv1 implements SDK {
 
     @Override
     public IdentityRegister baseIdentityRegistry() {
-        final Set<IdentityRegister.Registree> types = this.types()
+        final Set<IdentityRegister.TypeRegistree> types = this.types()
             .stream()
             .map(IdentityRegister::registree)
             .collect(Collectors.toSet());
