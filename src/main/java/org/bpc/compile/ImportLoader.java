@@ -7,7 +7,7 @@ import org.bpc.ast.Type;
 
 import java.util.Optional;
 
-public class ModuleReferencer {
+public class ImportLoader {
     public ReferencedModule reference(Module module, Namespace referencedAs, IdentityRegister register) {
         return new ReferencedModule(
             referencedAs,

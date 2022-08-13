@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ModuleReferencerTest {
+class ImportLoaderTest {
 
     @Test
     void testReferenceModule() {
@@ -35,7 +35,7 @@ class ModuleReferencerTest {
             )
         );
 
-        ReferencedModule actual = new ModuleReferencer()
+        ReferencedModule actual = new ImportLoader()
             .reference(module, new Namespace("io", "filesystem"), register);
 
         ReferencedModule expected = new ReferencedModule(
