@@ -12,9 +12,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CodeFileLoader {
-    public Set<CompilationError> load(CodeFile file, ModuleRegistry moduleRegistry, IdentityRegister register) {
+    public Set<CompilationError> load(CodeFile file, Registry register) {
         for (Use use : file.uses()) {
-            final Module module = moduleRegistry.getModule(use.namespace())
+            final Module module = register.getModule(use.namespace())
                 .orElse(null);
             if (module == null) {
                 return Set.of(new ModuleNotFound(use.namespace()));

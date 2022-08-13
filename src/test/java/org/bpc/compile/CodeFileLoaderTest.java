@@ -24,7 +24,7 @@ class CodeFileLoaderTest {
             List.of()
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseModuleRegistry(), sdk.baseIdentityRegistry());
+        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
 
         assertThat(errors).isEmpty();
     }
@@ -36,7 +36,7 @@ class CodeFileLoaderTest {
             List.of()
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseModuleRegistry(), sdk.baseIdentityRegistry());
+        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
 
         assertThat(errors).containsExactly(
             new ModuleNotFound(new Namespace("apache"))
@@ -55,7 +55,7 @@ class CodeFileLoaderTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseModuleRegistry(), sdk.baseIdentityRegistry());
+        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
 
         assertThat(errors).containsExactly(
             new TypeUnknown(new Type("bar"))
@@ -78,7 +78,7 @@ class CodeFileLoaderTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseModuleRegistry(), sdk.baseIdentityRegistry());
+        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
 
         assertThat(errors).containsExactly(
             new TypeUnknown(new Type("bar"))
@@ -109,7 +109,7 @@ class CodeFileLoaderTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseModuleRegistry(), sdk.baseIdentityRegistry());
+        Set<CompilationError> errors = loader.load(file,  sdk.baseRegistry());
 
         assertThat(errors).containsExactly(
             new TypeUnknown(new Type("what"))
@@ -140,7 +140,7 @@ class CodeFileLoaderTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseModuleRegistry(), sdk.baseIdentityRegistry());
+        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
 
         assertThat(errors).isEmpty();
     }

@@ -11,15 +11,15 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bpc.compile.IdentityRegister.procedure;
-import static org.bpc.compile.IdentityRegister.type;
+import static org.bpc.compile.Registry.procedure;
+import static org.bpc.compile.Registry.type;
 
 class ImportLoaderTest {
 
     @Test
     void testImportModule() {
         SDK sdk = new SDKv1();
-        IdentityRegister register = sdk.baseIdentityRegistry();
+        Registry register = sdk.baseRegistry();
         Module module = new Module(
             new Namespace("disk"),
             List.of(
@@ -72,7 +72,7 @@ class ImportLoaderTest {
         );
 
         assertThat(actual).isEqualTo(expected);
-        assertThat(register).isEqualTo(new IdentityRegister(
+        assertThat(register).isEqualTo(new Registry(
             sdk,
             Set.of(
                 type(

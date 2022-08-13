@@ -34,19 +34,14 @@ public class SDKv1 implements SDK {
     }
 
     @Override
-    public IdentityRegister baseIdentityRegistry() {
-        final Set<IdentityRegister.TypeRegistree> types = this.types()
+    public Registry baseRegistry() {
+        final Set<Registry.TypeRegistree> types = this.types()
             .stream()
-            .map(IdentityRegister::type)
+            .map(Registry::type)
             .collect(Collectors.toSet());
-        return new IdentityRegister(new HashSet<>(types), new HashSet<>());
-    }
-
-    @Override
-    public ModuleRegistry baseModuleRegistry() {
         final Map<Namespace, Module> mods = this.modules()
             .stream()
             .collect(Collectors.toMap(Module::namespace, (module) -> module));
-        return new ModuleRegistry(new HashMap<>(mods));
+        return new Registry(mods, new HashSet<>(types), new HashSet<>());
     }
 }
