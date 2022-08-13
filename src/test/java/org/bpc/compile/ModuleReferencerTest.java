@@ -23,7 +23,8 @@ class ModuleReferencerTest {
                     List.of(
                         new Parameter("fd", new Type("file-descriptor", new Namespace("disk"))),
                         new Parameter("value", new Type("string"))
-                    )
+                    ),
+                    new Type("int")
                 )
             ),
             List.of(
@@ -54,7 +55,7 @@ class ModuleReferencerTest {
                             new ReferencedType(new Identifier("string"), new Identifier("string"))
                         )
                     ),
-                    Optional.empty()
+                    Optional.of(new ReferencedType(new Identifier("int"), new Identifier("int")))
                 )
             ),
             List.of(
