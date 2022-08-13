@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class Registry {
     public record TypeRegistree(Identifier canonical, Identifier referenced) { }
-    public record ProcedureRegistree(Identifier canonical, Identifier referenced) {}
+    public record ProcedureRegistree(Identifier canonical, Identifier referenced, ReferencedProcedure procedure) {}
 
     public static TypeRegistree type(Type type) {
         return new TypeRegistree(
@@ -25,8 +25,8 @@ public class Registry {
         return new TypeRegistree(canonical, referenced);
     }
 
-    public static ProcedureRegistree procedure(Identifier canonical, Identifier referenced) {
-        return new ProcedureRegistree(canonical, referenced);
+    public static ProcedureRegistree procedure(Identifier canonical, Identifier referenced, ReferencedProcedure procedure) {
+        return new ProcedureRegistree(canonical, referenced, procedure);
     }
 
     private final Map<Namespace, Module> modules;
@@ -82,12 +82,16 @@ public class Registry {
             .anyMatch((type) -> type.referenced().equals(identifier));
     }
 
-    public Optional<CompilationError> referenceCanonicalProcedureAs(Identifier canonical, Identifier referenced) {
+    public Optional<CompilationError> referenceCanonicalProcedureAs(
+        Identifier canonical,
+        Identifier referenced,
+        ReferencedProcedure procedure
+    ) {
         final boolean exists = this.hasReferencedProcedure(referenced);
         if (exists) {
             return Optional.of(new ConflictingDeclaration(referenced));
         }
-        this.procedures.add(new ProcedureRegistree(canonical, referenced));
+        this.procedures.add(new ProcedureRegistree(canonical, referenced, procedure));
         return Optional.empty();
     }
 

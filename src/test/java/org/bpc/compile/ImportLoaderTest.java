@@ -37,41 +37,9 @@ class ImportLoaderTest {
             )
         );
 
-        ReferencedModule actual = new ImportLoader()
+        new ImportLoader()
             .reference(module, new Namespace("io", "filesystem"), register);
 
-        ReferencedModule expected = new ReferencedModule(
-            new Namespace("io", "filesystem"),
-            new Namespace("disk"),
-            List.of(
-                new ReferencedProcedure(
-                    new Identifier("write", new Namespace("io", "filesystem")),
-                    new Identifier("write", new Namespace("disk")),
-                    List.of(
-                        new ReferencedParameter(
-                            "fd",
-                            new ReferencedType(
-                                new Identifier("file-descriptor", new Namespace("io", "filesystem")),
-                                new Identifier("file-descriptor", new Namespace("disk"))
-                            )
-                        ),
-                        new ReferencedParameter(
-                            "value",
-                            new ReferencedType(new Identifier("string"), new Identifier("string"))
-                        )
-                    ),
-                    Optional.of(new ReferencedType(new Identifier("int"), new Identifier("int")))
-                )
-            ),
-            List.of(
-                new ReferencedType(
-                    new Identifier("file-descriptor", new Namespace("io", "filesystem")),
-                    new Identifier("file-descriptor", new Namespace("disk"))
-                )
-            )
-        );
-
-        assertThat(actual).isEqualTo(expected);
         assertThat(register).isEqualTo(new Registry(
             sdk,
             Set.of(
@@ -83,7 +51,25 @@ class ImportLoaderTest {
             Set.of(
                 procedure(
                     new Identifier("write", new Namespace("disk")),
-                    new Identifier("write", new Namespace("io", "filesystem"))
+                    new Identifier("write", new Namespace("io", "filesystem")),
+                    new ReferencedProcedure(
+                        new Identifier("write", new Namespace("io", "filesystem")),
+                        new Identifier("write", new Namespace("disk")),
+                        List.of(
+                            new ReferencedParameter(
+                                "fd",
+                                new ReferencedType(
+                                    new Identifier("file-descriptor", new Namespace("io", "filesystem")),
+                                    new Identifier("file-descriptor", new Namespace("disk"))
+                                )
+                            ),
+                            new ReferencedParameter(
+                                "value",
+                                new ReferencedType(new Identifier("string"), new Identifier("string"))
+                            )
+                        ),
+                        Optional.of(new ReferencedType(new Identifier("int"), new Identifier("int")))
+                    )
                 )
             )
         ));
