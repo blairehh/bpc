@@ -1,14 +1,10 @@
 package org.bpc.compile;
 
-import org.bpc.ast.Identifier;
 import org.bpc.ast.Namespace;
 import org.bpc.ast.Parameter;
 import org.bpc.ast.Type;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SDKv1 implements SDK {
@@ -39,11 +35,11 @@ public class SDKv1 implements SDK {
 
     @Override
     public IdentityRegister baseIdentityRegistry() {
-        final Function<Type, Identifier> toIdentifier = (type) -> new Identifier(type.name(), type.namespace());
-        final Map<Identifier, Identifier> types = this.types()
+        final Set<IdentityRegister.Registree> types = this.types()
             .stream()
-            .collect(Collectors.toMap(toIdentifier, toIdentifier));
-        return new IdentityRegister(new HashMap<>(types), new HashMap<>());
+            .map(IdentityRegister::registree)
+            .collect(Collectors.toSet());
+        return new IdentityRegister(new HashSet<>(types), new HashMap<>());
     }
 
     @Override

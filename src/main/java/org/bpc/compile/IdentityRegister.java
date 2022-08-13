@@ -1,6 +1,7 @@
 package org.bpc.compile;
 
 import org.bpc.ast.Identifier;
+import org.bpc.ast.Type;
 import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ConflictingDeclaration;
 
@@ -9,36 +10,54 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class IdentityRegister {
-    private final Map<Identifier, Identifier> types;
-    private final Map<Identifier, Identifier> procedures;
+    public record Registree(Identifier canonical, Identifier referenced) { }
 
-    public IdentityRegister() {
-        this.types = new HashMap<>();
-        this.procedures = new HashMap<>();
+    public static Registree registree(Type type) {
+        return new Registree(
+            new Identifier(type.name(), type.namespace()),
+            new Identifier(type.name(), type.namespace())
+        );
     }
 
-    public IdentityRegister(Map<Identifier, Identifier> types, Map<Identifier, Identifier> procedures) {
+    public static Registree registree(Identifier canonical, Identifier referenced) {
+        return new Registree(canonical, referenced);
+    }
+
+    private final Set<Registree> types;
+    private final Map<Identifier, Identifier> procedures;
+
+    public IdentityRegister(Set<Registree> types, Map<Identifier, Identifier> procedures) {
         this.types = types;
         this.procedures = procedures;
     }
 
-    public IdentityRegister(SDK sdk, Map<Identifier, Identifier> types, Map<Identifier, Identifier> procedures) {
-        this.types = Stream.concat(sdk.baseIdentityRegistry().types.entrySet().stream(), types.entrySet().stream())
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    public IdentityRegister(SDK sdk, Set<Registree> types, Map<Identifier, Identifier> procedures) {
+        this.types = Stream.concat(sdk.baseIdentityRegistry().types.stream(), types.stream())
+            .collect(Collectors.toSet());
         this.procedures = Stream.concat(sdk.baseIdentityRegistry().procedures.entrySet().stream(), procedures.entrySet().stream())
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public Optional<Identifier> getReferencedTypeFromCanonical(Identifier canonical) {
-        return Optional.ofNullable(this.types.get(canonical));
+        return this.types
+            .stream()
+            .filter((type) -> type.canonical().equals(canonical))
+            .map(Registree::referenced)
+            .findFirst();
+    }
+
+    public boolean hasReferencedType(Identifier identifier) {
+        return this.types
+            .stream()
+            .anyMatch((type) -> type.referenced().equals(identifier));
     }
 
     public Optional<CompilationError> referenceCanonicalTypeAs(Identifier canonical, Identifier referenced) {
-        final Identifier existing = this.types.get(referenced);
-        if (existing != null) {
+        final boolean exists = this.hasReferencedType(referenced);
+        if (exists) {
             return Optional.of(new ConflictingDeclaration(referenced));
         }
-        this.types.put(canonical, referenced);
+        this.types.add(new Registree(canonical, referenced));
         return Optional.empty();
     }
 

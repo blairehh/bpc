@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bpc.compile.IdentityRegister.registree;
 
 class ImportLoaderTest {
 
@@ -72,9 +74,11 @@ class ImportLoaderTest {
         assertThat(actual).isEqualTo(expected);
         assertThat(register).isEqualTo(new IdentityRegister(
             sdk,
-            Map.of(
-                new Identifier("file-descriptor", new Namespace("disk")),
-                new Identifier("file-descriptor", new Namespace("io", "filesystem"))
+            Set.of(
+                registree(
+                    new Identifier("file-descriptor", new Namespace("disk")),
+                    new Identifier("file-descriptor", new Namespace("io", "filesystem"))
+                )
             ),
             Map.of(
                 new Identifier("write", new Namespace("disk")),
