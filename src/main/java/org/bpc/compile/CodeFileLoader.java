@@ -1,13 +1,15 @@
 package org.bpc.compile;
 
 import org.bpc.ast.Identifier;
-import org.bpc.ast.Procedure;
 import org.bpc.ast.Type;
 import org.bpc.ast.Use;
 import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ModuleNotFound;
+import org.bpc.compile.errors.TypeUnknown;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CodeFileLoader {
     public Set<CompilationError> load(CodeFile file, ModuleRegistry moduleRegistry, IdentityRegister register) {
@@ -19,9 +21,14 @@ public class CodeFileLoader {
             }
             new ImportLoader().reference(module, use.namespace(), register);
         }
+        Set<CompilationError> errors = new HashSet<>();
         for (Type type : file.getTypesUsed()) {
-
+            final boolean knownType = register.hasReferencedType(new Identifier(type.name(), type.namespace()));
+            if (!knownType) {
+                errors.add(new TypeUnknown(type));
+            }
         }
-        return Set.of();
+        return errors.stream()
+            .collect(Collectors.toSet());
     }
 }
