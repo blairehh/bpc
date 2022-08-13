@@ -38,11 +38,19 @@ public class SDKv1 implements SDK {
     }
 
     @Override
-    public IdentityRegister baseRegistry() {
+    public IdentityRegister baseIdentityRegistry() {
         final Function<Type, Identifier> toIdentifier = (type) -> new Identifier(type.name(), type.namespace());
         final Map<Identifier, Identifier> types = this.types()
             .stream()
             .collect(Collectors.toMap(toIdentifier, toIdentifier));
         return new IdentityRegister(new HashMap<>(types), new HashMap<>());
+    }
+
+    @Override
+    public ModuleRegistry baseModuleRegistry() {
+        final Map<Namespace, Module> mods = this.modules()
+            .stream()
+            .collect(Collectors.toMap(Module::namespace, (module) -> module));
+        return new ModuleRegistry(new HashMap<>(mods));
     }
 }

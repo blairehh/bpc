@@ -7,5 +7,6 @@ import java.util.List;
 public interface SDK {
     List<Module> modules();
     List<Type> types();
-    IdentityRegister baseRegistry();
+    IdentityRegister baseIdentityRegistry();
+    ModuleRegistry baseModuleRegistry();
 }

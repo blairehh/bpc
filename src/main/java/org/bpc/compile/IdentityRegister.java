@@ -23,9 +23,9 @@ public class IdentityRegister {
     }
 
     public IdentityRegister(SDK sdk, Map<Identifier, Identifier> types, Map<Identifier, Identifier> procedures) {
-        this.types = Stream.concat(sdk.baseRegistry().types.entrySet().stream(), types.entrySet().stream())
+        this.types = Stream.concat(sdk.baseIdentityRegistry().types.entrySet().stream(), types.entrySet().stream())
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        this.procedures = Stream.concat(sdk.baseRegistry().procedures.entrySet().stream(), procedures.entrySet().stream())
+        this.procedures = Stream.concat(sdk.baseIdentityRegistry().procedures.entrySet().stream(), procedures.entrySet().stream())
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 

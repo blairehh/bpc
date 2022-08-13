@@ -17,7 +17,7 @@ class ImportLoaderTest {
     @Test
     void testImportModule() {
         SDK sdk = new SDKv1();
-        IdentityRegister register = sdk.baseRegistry();
+        IdentityRegister register = sdk.baseIdentityRegistry();
         Module module = new Module(
             new Namespace("disk"),
             List.of(
