@@ -1,5 +1,8 @@
 package org.bpc.compile;
 
+import org.bpc.ast.Identifier;
+import org.bpc.ast.Procedure;
+import org.bpc.ast.Type;
 import org.bpc.ast.Use;
 import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ModuleNotFound;
@@ -15,6 +18,8 @@ public class CodeFileLoader {
                 return Set.of(new ModuleNotFound(use.namespace()));
             }
             new ImportLoader().reference(module, use.namespace(), register);
+        }
+        for (Type type : file.getTypesUsed()) {
         }
         return Set.of();
     }
