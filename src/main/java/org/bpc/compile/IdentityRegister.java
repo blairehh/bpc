@@ -26,6 +26,10 @@ public class IdentityRegister {
         this.types.put(canonical, referenced);
     }
 
+    public void referenceCanonicalProcedureAs(Identifier canonical, Identifier referenced) {
+        this.procedures.put(canonical, referenced);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {

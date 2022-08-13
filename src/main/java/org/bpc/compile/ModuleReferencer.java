@@ -39,9 +39,12 @@ public class ModuleReferencer {
     }
 
     private ReferencedProcedure procedure(Module module, Namespace referencedAs, ExportedProcedure proc, IdentityRegister register) {
+        final Identifier referenced = new Identifier(proc.name(), referencedAs);
+        final Identifier canonical = new Identifier(proc.name(), module.namespace());
+        register.referenceCanonicalProcedureAs(canonical, referenced);
         return new ReferencedProcedure(
-            new Identifier(proc.name(), referencedAs),
-            new Identifier(proc.name(), module.namespace()),
+            referenced,
+            canonical,
             proc.parameters().stream().map((param) -> parameter(module, referencedAs, param, register)).toList(),
             Optional.ofNullable(proc.returnType())
                 .map((type) -> procedureReturn(module, referencedAs, type))

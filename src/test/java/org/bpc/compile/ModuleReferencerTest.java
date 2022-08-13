@@ -74,7 +74,10 @@ class ModuleReferencerTest {
                 new Identifier("file-descriptor", new Namespace("disk")),
                 new Identifier("file-descriptor", new Namespace("io", "filesystem"))
             ),
-            Map.of()
+            Map.of(
+                new Identifier("write", new Namespace("disk")),
+                new Identifier("write", new Namespace("io", "filesystem"))
+            )
         ));
     }
 }
