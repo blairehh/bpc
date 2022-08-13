@@ -33,6 +33,7 @@ public class FileCompiler {
         }
 
         TranspileFile transpile = new TranspileFile(
+            file.path(),
             file.procedures()
                 .stream()
                 .map((procedure) -> procedure.canonicalize(register))

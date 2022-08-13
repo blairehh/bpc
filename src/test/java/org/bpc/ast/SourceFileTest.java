@@ -17,13 +17,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "bar",
                     null,
@@ -41,13 +42,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     new Type("int"),
@@ -64,13 +66,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     null,
@@ -87,13 +90,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo",
                     null,
@@ -117,13 +121,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo-bar",
                     new Type("int"),
@@ -146,13 +151,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo-bar",
                     new Type("int"),
@@ -176,13 +182,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo-bar",
                     new Type("int"),
@@ -220,13 +227,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo",
                     null,
@@ -252,7 +260,7 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
@@ -260,6 +268,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo",
                     null,
@@ -287,7 +296,7 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
@@ -295,6 +304,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo",
                     null,
@@ -330,13 +340,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "func",
                     new Type("int"),
@@ -359,13 +370,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "func",
                     new Type("int"),
@@ -388,13 +400,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "func",
                     new Type("int"),
@@ -417,13 +430,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "foo",
                     null,
@@ -444,13 +458,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     null,
@@ -470,13 +485,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     null,
@@ -509,13 +525,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     null,
@@ -539,13 +556,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     new Type("tcp-server", new Namespace("sock")),
@@ -564,13 +582,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     null,
@@ -595,13 +614,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     null,
@@ -624,13 +644,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 new Procedure(
                     "main",
                     null,
@@ -650,13 +671,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 List.of(new Import("console")),
                 new Procedure(
                     "main",
@@ -674,13 +696,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 List.of(new Import(new Namespace("spring-boot"))),
                 new Procedure(
                     "main",
@@ -698,13 +721,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 List.of(new Import(new Namespace("aws", "sqs"))),
                 new Procedure(
                     "main",
@@ -722,13 +746,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 List.of(new Import(new Namespace("foo", "bar", "baz", "doh"))),
                 new Procedure(
                     "main",
@@ -746,13 +771,14 @@ class SourceFileTest {
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
-        SourceFile sourceFile = new SourceFile();
+        SourceFile sourceFile = new SourceFile("./code.bp");
         compilation.walk(sourceFile);
 
         System.out.println(sourceFile);
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
+                "./code.bp",
                 List.of(new Import("console"), new Import("disk"), new Import("http")),
                 new Procedure(
                     "main",

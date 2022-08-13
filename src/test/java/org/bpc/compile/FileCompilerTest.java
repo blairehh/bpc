@@ -21,18 +21,20 @@ class FileCompilerTest {
     void testImportSdkModule() {
 
         CodeFile file = new CodeFile(
+            "./code.bp",
             List.of(new Import(new Namespace("console"))),
             List.of()
         );
 
         FileCompilation result = loader.load(file, sdk.baseRegistry());
 
-        assertThat(result).isEqualTo(new FileCompilation.Ok(new TranspileFile(List.of())));
+        assertThat(result).isEqualTo(new FileCompilation.Ok(new TranspileFile("./code.bp", List.of())));
     }
 
     @Test
     void testUnknownImport() {
         CodeFile file = new CodeFile(
+            "./code.bp",
             List.of(new Import(new Namespace("apache"))),
             List.of()
         );
@@ -47,6 +49,7 @@ class FileCompilerTest {
     @Test
     void testProcedureReturnTypeIsUnknown() {
         CodeFile file = new CodeFile(
+            "./code.bp",
             List.of(),
             List.of(
                 new Procedure(
@@ -66,6 +69,7 @@ class FileCompilerTest {
     @Test
     void testProcedureParameterTypeIsUnknown() {
         CodeFile file = new CodeFile(
+            "./code.bp",
             List.of(),
             List.of(
                 new Procedure(
@@ -89,6 +93,7 @@ class FileCompilerTest {
     @Test
     void testVariableDeclarationInProcedureContainsUnknownType() {
         CodeFile file = new CodeFile(
+            "./code.bp",
             List.of(),
             List.of(
                 new Procedure(
@@ -120,6 +125,7 @@ class FileCompilerTest {
     @Test
     void testNoUnknownTypes() {
         CodeFile file = new CodeFile(
+            "./code.bp",
             List.of(),
             List.of(
                 new Procedure(
@@ -144,6 +150,7 @@ class FileCompilerTest {
         FileCompilation result = loader.load(file, sdk.baseRegistry());
 
         TranspileFile transpile = new TranspileFile(
+            "./code.bp",
             List.of(
                 new Procedure(
                     "foo",

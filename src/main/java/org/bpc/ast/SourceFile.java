@@ -6,6 +6,7 @@ import org.bpc.syntax.SyntaxListener;
 import java.util.*;
 
 public class SourceFile implements SyntaxListener {
+    private final String path;
     private final List<Import> imports;
     private final List<Procedure> procedures;
     private Procedure currentProcedure;
@@ -14,17 +15,20 @@ public class SourceFile implements SyntaxListener {
     private boolean enteredProcedureStatement = false;
 
 
-    public SourceFile(List<Import> imports, Procedure... procedures) {
+    public SourceFile(String path, List<Import> imports, Procedure... procedures) {
+        this.path = path;
         this.imports = imports;
         this.procedures = List.of(procedures);
     }
 
-    public SourceFile(Procedure... procedures) {
+    public SourceFile(String path, Procedure... procedures) {
+        this.path = path;
         this.imports = new ArrayList<>();
         this.procedures = List.of(procedures);
     }
 
-    public SourceFile() {
+    public SourceFile(String path) {
+        this.path = path;
         this.imports = new ArrayList<>();
         this.procedures = new ArrayList<>();
         this.currentProcedure = null;
@@ -148,7 +152,7 @@ public class SourceFile implements SyntaxListener {
     }
 
     public CodeFile toCodeFile() {
-        return new CodeFile(this.imports, this.procedures);
+        return new CodeFile(this.path, this.imports, this.procedures);
     }
 
     @Override
