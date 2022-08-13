@@ -9,13 +9,9 @@ import java.util.Optional;
 
 // @TODO how to hande conflicts or not founds
 public class ImportLoader {
-    public ReferencedModule reference(Module module, Namespace referencedAs, Registry register) {
-        return new ReferencedModule(
-            referencedAs,
-            module.namespace(),
-            module.procedures().stream().map((proc) -> this.procedure(module, referencedAs, proc, register)).toList(),
-            module.types().stream().map((type) -> this.type(referencedAs, type, register)).toList()
-        );
+    public void reference(Module module, Namespace referencedAs, Registry register) {
+        module.procedures().forEach((proc) -> this.procedure(module, referencedAs, proc, register));
+        module.types().forEach((type) -> this.type(referencedAs, type, register));
     }
 
     private boolean isModuleType(Module module, Type type) {
