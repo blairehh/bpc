@@ -26,7 +26,7 @@ public class ModuleReferencer {
     private ReferencedType type(Namespace referencedAs, Type type, IdentityRegister register) {
         final Identifier referenced = new Identifier(type.name(), referencedAs);
         final Identifier canonical = new Identifier(type.name(), type.namespace());
-        register.referenceCanonicalAs(canonical, referenced);
+        register.referenceCanonicalTypeAs(canonical, referenced);
         return new ReferencedType(referenced, canonical);
     }
 

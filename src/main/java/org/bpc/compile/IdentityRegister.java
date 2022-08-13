@@ -3,26 +3,27 @@ package org.bpc.compile;
 import org.bpc.ast.Identifier;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class IdentityRegister {
-    private final Map<Identifier, Identifier> map;
+    private final Map<Identifier, Identifier> types;
+    private final Map<Identifier, Identifier> procedures;
 
     public IdentityRegister() {
-        this.map = new HashMap<>();
+        this.types = new HashMap<>();
+        this.procedures = new HashMap<>();
     }
 
-    public IdentityRegister(Map.Entry<Identifier, Identifier>... items) {
-        this.map = Arrays.stream(items)
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    public IdentityRegister(Map<Identifier, Identifier> types, Map<Identifier, Identifier> procedures) {
+        this.types = types;
+        this.procedures = procedures;
     }
 
-    public Optional<Identifier> getReferencedFromCanonical(Identifier canonical) {
-        return Optional.ofNullable(this.map.get(canonical));
+    public Optional<Identifier> getReferencedTypeFromCanonical(Identifier canonical) {
+        return Optional.ofNullable(this.types.get(canonical));
     }
 
-    public void referenceCanonicalAs(Identifier canonical, Identifier referenced) {
-        this.map.put(canonical, referenced);
+    public void referenceCanonicalTypeAs(Identifier canonical, Identifier referenced) {
+        this.types.put(canonical, referenced);
     }
 
     @Override
@@ -35,18 +36,22 @@ public class IdentityRegister {
             return false;
         }
 
-        IdentityRegister that = (IdentityRegister) o;
+        IdentityRegister register = (IdentityRegister) o;
 
-        return Objects.equals(this.map, that.map);
+        return Objects.equals(this.types, register.types)
+            && Objects.equals(this.procedures, register.procedures);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(map);
+        return Objects.hash(types, procedures);
     }
 
     @Override
     public String toString() {
-        return this.map.toString();
+        return new StringJoiner(", ", IdentityRegister.class.getSimpleName() + "[", "]")
+            .add("types=" + types)
+            .add("procedures=" + procedures)
+            .toString();
     }
 }

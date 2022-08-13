@@ -7,9 +7,9 @@ import org.bpc.ast.Type;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ModuleReferencerTest {
@@ -70,10 +70,11 @@ class ModuleReferencerTest {
 
         assertThat(actual).isEqualTo(expected);
         assertThat(register).isEqualTo(new IdentityRegister(
-            entry(
+            Map.of(
                 new Identifier("file-descriptor", new Namespace("disk")),
                 new Identifier("file-descriptor", new Namespace("io", "filesystem"))
-            )
+            ),
+            Map.of()
         ));
     }
 }
