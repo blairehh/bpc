@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CodeFileLoader {
+public class FileCompiler {
     public Set<CompilationError> load(CodeFile file, Registry register) {
         for (Import _import : file.imports()) {
             final Module module = register.getModule(_import.namespace())

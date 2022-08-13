@@ -11,10 +11,10 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CodeFileLoaderTest {
+class FileCompilerTest {
 
     SDK sdk = new SDKv1();
-    CodeFileLoader loader = new CodeFileLoader();
+    FileCompiler loader = new FileCompiler();
 
     @Test
     void testImportSdkModule() {
