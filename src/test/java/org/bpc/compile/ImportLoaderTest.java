@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bpc.compile.IdentityRegister.procedure;
-import static org.bpc.compile.IdentityRegister.registree;
+import static org.bpc.compile.IdentityRegister.type;
 
 class ImportLoaderTest {
 
@@ -75,7 +75,7 @@ class ImportLoaderTest {
         assertThat(register).isEqualTo(new IdentityRegister(
             sdk,
             Set.of(
-                registree(
+                type(
                     new Identifier("file-descriptor", new Namespace("disk")),
                     new Identifier("file-descriptor", new Namespace("io", "filesystem"))
                 )

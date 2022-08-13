@@ -1,7 +1,6 @@
 package org.bpc.compile;
 
 import org.bpc.ast.Identifier;
-import org.bpc.ast.Procedure;
 import org.bpc.ast.Type;
 import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ConflictingDeclaration;
@@ -14,14 +13,14 @@ public class IdentityRegister {
     public record TypeRegistree(Identifier canonical, Identifier referenced) { }
     public record ProcedureRegistree(Identifier canonical, Identifier referenced) {}
 
-    public static TypeRegistree registree(Type type) {
+    public static TypeRegistree type(Type type) {
         return new TypeRegistree(
             new Identifier(type.name(), type.namespace()),
             new Identifier(type.name(), type.namespace())
         );
     }
 
-    public static TypeRegistree registree(Identifier canonical, Identifier referenced) {
+    public static TypeRegistree type(Identifier canonical, Identifier referenced) {
         return new TypeRegistree(canonical, referenced);
     }
 

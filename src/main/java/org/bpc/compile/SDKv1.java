@@ -37,7 +37,7 @@ public class SDKv1 implements SDK {
     public IdentityRegister baseIdentityRegistry() {
         final Set<IdentityRegister.TypeRegistree> types = this.types()
             .stream()
-            .map(IdentityRegister::registree)
+            .map(IdentityRegister::type)
             .collect(Collectors.toSet());
         return new IdentityRegister(new HashSet<>(types), new HashSet<>());
     }
