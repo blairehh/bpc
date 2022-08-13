@@ -1,9 +1,9 @@
 grammar BP;
 
 
-prog: (use | BlankLine | NewLine)* (proc | BlankLine | NewLine)+;
+prog: (mimport | BlankLine | NewLine)* (proc | BlankLine | NewLine)+;
 
-use: 'use ' (Identifier | IdentifierWithDot) '\n';
+mimport: 'use ' (Identifier | IdentifierWithDot) '\n';
 
 proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
 proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Namespace? Identifier)?;

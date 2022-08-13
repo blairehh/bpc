@@ -6,7 +6,7 @@ import org.bpc.syntax.SyntaxListener;
 import java.util.*;
 
 public class SourceFile implements SyntaxListener {
-    private final List<Use> uses;
+    private final List<Import> imports;
     private final List<Procedure> procedures;
     private Procedure currentProcedure;
     private Block currentBlock;
@@ -14,18 +14,18 @@ public class SourceFile implements SyntaxListener {
     private boolean enteredProcedureStatement = false;
 
 
-    public SourceFile(List<Use> use, Procedure... procedures) {
-        this.uses = use;
+    public SourceFile(List<Import> imports, Procedure... procedures) {
+        this.imports = imports;
         this.procedures = List.of(procedures);
     }
 
     public SourceFile(Procedure... procedures) {
-        this.uses = new ArrayList<>();
+        this.imports = new ArrayList<>();
         this.procedures = List.of(procedures);
     }
 
     public SourceFile() {
-        this.uses = new ArrayList<>();
+        this.imports = new ArrayList<>();
         this.procedures = new ArrayList<>();
         this.currentProcedure = null;
     }
@@ -139,16 +139,16 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void enterUse(List<String> namespace) {
-        this.uses.add(new Use(new Namespace(namespace)));
+    public void enterImport(List<String> namespace) {
+        this.imports.add(new Import(new Namespace(namespace)));
     }
 
     @Override
-    public void exitUse() {
+    public void exitImport() {
     }
 
     public CodeFile toCodeFile() {
-        return new CodeFile(this.uses, this.procedures);
+        return new CodeFile(this.imports, this.procedures);
     }
 
     @Override
@@ -167,12 +167,12 @@ public class SourceFile implements SyntaxListener {
             && Objects.equals(this.currentProcedure, that.currentProcedure)
             && Objects.equals(this.currentBlock, that.currentBlock)
             && Objects.equals(this.assignable, that.assignable)
-            && Objects.equals(this.uses, that.uses);
+            && Objects.equals(this.imports, that.imports);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(procedures, currentProcedure, currentBlock, assignable, uses);
+        return Objects.hash(procedures, currentProcedure, currentBlock, assignable, imports);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class SourceFile implements SyntaxListener {
             .add("currentProcedure=" + currentProcedure)
             .add("currentScope=" + currentBlock)
             .add("assignable=" + assignable)
-            .add("uses=" + uses)
+            .add("imports=" + imports)
             .toString();
     }
 }

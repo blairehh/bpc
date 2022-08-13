@@ -20,7 +20,7 @@ class CodeFileLoaderTest {
     void testImportSdkModule() {
 
         CodeFile file = new CodeFile(
-            List.of(new Use(new Namespace("console"))),
+            List.of(new Import(new Namespace("console"))),
             List.of()
         );
 
@@ -32,7 +32,7 @@ class CodeFileLoaderTest {
     @Test
     void testUnknownImport() {
         CodeFile file = new CodeFile(
-            List.of(new Use(new Namespace("apache"))),
+            List.of(new Import(new Namespace("apache"))),
             List.of()
         );
 

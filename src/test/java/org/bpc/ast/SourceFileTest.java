@@ -645,8 +645,8 @@ class SourceFileTest {
     }
 
     @Test
-    void testSingleUse() {
-        String code = read("single_use.bp");
+    void testSingleImport() {
+        String code = read("single_import.bp");
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
@@ -657,7 +657,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use("console")),
+                List.of(new Import("console")),
                 new Procedure(
                     "main",
                     null,
@@ -669,8 +669,8 @@ class SourceFileTest {
     }
 
     @Test
-    void testUseWithDash() {
-        String code = read("use_with_dash.bp");
+    void testImportWithDash() {
+        String code = read("import_with_dash.bp");
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
@@ -681,7 +681,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use(new Namespace("spring-boot"))),
+                List.of(new Import(new Namespace("spring-boot"))),
                 new Procedure(
                     "main",
                     null,
@@ -693,8 +693,8 @@ class SourceFileTest {
     }
 
     @Test
-    void testUseWithDot() {
-        String code = read("use_with_dot.bp");
+    void testImportWithDot() {
+        String code = read("import_with_dot.bp");
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
@@ -705,7 +705,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use(new Namespace("aws", "sqs"))),
+                List.of(new Import(new Namespace("aws", "sqs"))),
                 new Procedure(
                     "main",
                     null,
@@ -717,8 +717,8 @@ class SourceFileTest {
     }
 
     @Test
-    void testUseWithManyDots() {
-        String code = read("use_with_many_dots.bp");
+    void testImportWithManyDots() {
+        String code = read("import_with_many_dots.bp");
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
@@ -729,7 +729,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use(new Namespace("foo", "bar", "baz", "doh"))),
+                List.of(new Import(new Namespace("foo", "bar", "baz", "doh"))),
                 new Procedure(
                     "main",
                     null,
@@ -741,8 +741,8 @@ class SourceFileTest {
     }
 
     @Test
-    void testMultipleUse() {
-        String code = read("multiple_use.bp");
+    void testMultipleImports() {
+        String code = read("multiple_imports.bp");
         SyntaxCompilation compilation = new SyntaxCompiler()
             .compile(code);
 
@@ -753,7 +753,7 @@ class SourceFileTest {
         assertThat(compilation.hasErrors()).isFalse();
         assertThat(sourceFile).isEqualTo(
             new SourceFile(
-                List.of(new Use("console"), new Use("disk"), new Use("http")),
+                List.of(new Import("console"), new Import("disk"), new Import("http")),
                 new Procedure(
                     "main",
                     null,
