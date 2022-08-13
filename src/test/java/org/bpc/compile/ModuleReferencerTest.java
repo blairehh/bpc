@@ -9,12 +9,14 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ModuleReferencerTest {
 
     @Test
     void testReferenceModule() {
+        IdentityRegister register = new IdentityRegister();
         Module module = new Module(
             new Namespace("disk"),
             List.of(
@@ -33,7 +35,7 @@ class ModuleReferencerTest {
         );
 
         ReferencedModule actual = new ModuleReferencer()
-            .reference(module, new Namespace("io", "filesystem"), new IdentityRegister());
+            .reference(module, new Namespace("io", "filesystem"), register);
 
         ReferencedModule expected = new ReferencedModule(
             new Namespace("io", "filesystem"),
@@ -67,5 +69,11 @@ class ModuleReferencerTest {
         );
 
         assertThat(actual).isEqualTo(expected);
+        assertThat(register).isEqualTo(new IdentityRegister(
+            entry(
+                new Identifier("file-descriptor", new Namespace("disk")),
+                new Identifier("file-descriptor", new Namespace("io", "filesystem"))
+            )
+        ));
     }
 }

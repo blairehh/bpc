@@ -13,7 +13,7 @@ public class ModuleReferencer {
             referencedAs,
             module.namespace(),
             module.procedures().stream().map((proc) -> this.procedure(module, referencedAs, proc, register)).toList(),
-            module.types().stream().map((type) -> this.type(referencedAs, type)).toList()
+            module.types().stream().map((type) -> this.type(referencedAs, type, register)).toList()
         );
     }
 
@@ -23,11 +23,11 @@ public class ModuleReferencer {
     }
 
 
-    private ReferencedType type(Namespace referencedAs, Type type) {
-        return new ReferencedType(
-            new Identifier(type.name(), referencedAs),
-            new Identifier(type.name(), type.namespace())
-        );
+    private ReferencedType type(Namespace referencedAs, Type type, IdentityRegister register) {
+        final Identifier referenced = new Identifier(type.name(), referencedAs);
+        final Identifier canonical = new Identifier(type.name(), type.namespace());
+        register.referenceCanonicalAs(canonical, referenced);
+        return new ReferencedType(referenced, canonical);
     }
 
     private ReferencedParameter parameter(Module module, Namespace referencedAs, Parameter parameter, IdentityRegister register) {
