@@ -16,7 +16,8 @@ class ModuleReferencerTest {
 
     @Test
     void testReferenceModule() {
-        IdentityRegister register = new IdentityRegister();
+        SDK sdk = new SDKv1();
+        IdentityRegister register = sdk.baseRegistry();
         Module module = new Module(
             new Namespace("disk"),
             List.of(
@@ -70,6 +71,7 @@ class ModuleReferencerTest {
 
         assertThat(actual).isEqualTo(expected);
         assertThat(register).isEqualTo(new IdentityRegister(
+            sdk,
             Map.of(
                 new Identifier("file-descriptor", new Namespace("disk")),
                 new Identifier("file-descriptor", new Namespace("io", "filesystem"))
