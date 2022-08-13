@@ -1,5 +1,7 @@
 package org.bpc.ast;
 
+import org.bpc.compile.Registry;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -40,6 +42,15 @@ public final class VariableDeclaration implements Statement, Assignable {
     public List<Type> getTypesUsed() {
         return Stream.concat(Stream.of(this.type), this.expr.getTypesUsed().stream())
             .toList();
+    }
+
+    @Override
+    public Statement canonicalizeStatement(Registry registry) {
+        return new VariableDeclaration(
+            this.name,
+            registry.getCanonicalTypeFromReference(this.type).orElseThrow(),
+            this.expr.canonicalize(registry)
+        );
     }
 
     @Override

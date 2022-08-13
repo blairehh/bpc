@@ -1,5 +1,7 @@
 package org.bpc.ast;
 
+import org.bpc.compile.Registry;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -21,6 +23,10 @@ public class ExprRef implements Assignable {
 
     public List<Type> getTypesUsed() {
         return expr.getTypesUsed();
+    }
+
+    public ExprRef canonicalize(Registry registry) {
+        return new ExprRef(this.expr.canonicalize(registry));
     }
 
     @Override

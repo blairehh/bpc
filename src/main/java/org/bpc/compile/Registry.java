@@ -53,6 +53,14 @@ public class Registry {
         return Optional.ofNullable(this.modules.get(namespace));
     }
 
+    public Optional<Type> getCanonicalTypeFromReference(Type referenced) {
+        return this.types
+            .stream()
+            .filter((type) -> type.referenced().equals(new Identifier(referenced.name(), referenced.namespace())))
+            .map((identifier) -> new Type(identifier.canonical().name(), identifier.canonical().namespace()))
+            .findFirst();
+    }
+
     public Optional<Identifier> getReferencedTypeFromCanonical(Identifier canonical) {
         return this.types
             .stream()

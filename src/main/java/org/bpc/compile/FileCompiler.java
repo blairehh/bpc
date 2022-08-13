@@ -1,14 +1,14 @@
 package org.bpc.compile;
 
-import org.bpc.ast.Identifier;
-import org.bpc.ast.Type;
-import org.bpc.ast.Import;
+import org.bpc.ast.*;
 import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ModuleNotFound;
 import org.bpc.compile.errors.TypeUnknown;
+import org.bpc.transpile.TranspileFile;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FileCompiler {
@@ -31,6 +31,14 @@ public class FileCompiler {
         if (!errors.isEmpty()) {
             return new FileCompilation.Errors(errors.stream().collect(Collectors.toSet()));
         }
-        return new FileCompilation.Ok();
+
+        TranspileFile transpile = new TranspileFile(
+            file.procedures()
+                .stream()
+                .map((procedure) -> procedure.canonicalize(register))
+                .toList()
+        );
+
+        return new FileCompilation.Ok(transpile);
     }
 }

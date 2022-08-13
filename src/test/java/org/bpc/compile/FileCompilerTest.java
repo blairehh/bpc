@@ -4,6 +4,7 @@ import org.bpc.ast.*;
 import org.bpc.compile.errors.CompilationError;
 import org.bpc.compile.errors.ModuleNotFound;
 import org.bpc.compile.errors.TypeUnknown;
+import org.bpc.transpile.TranspileFile;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -26,7 +27,7 @@ class FileCompilerTest {
 
         FileCompilation result = loader.load(file, sdk.baseRegistry());
 
-        assertThat(result).isEqualTo(new FileCompilation.Ok());
+        assertThat(result).isEqualTo(new FileCompilation.Ok(new TranspileFile(List.of())));
     }
 
     @Test
@@ -133,7 +134,7 @@ class FileCompilerTest {
                                 "baz",
                                 new Type("num"),
                                 new NumberExpr(3)
-                                )
+                            )
                         )
                     )
                 )
@@ -142,6 +143,27 @@ class FileCompilerTest {
 
         FileCompilation result = loader.load(file, sdk.baseRegistry());
 
-        assertThat(result).isEqualTo(new FileCompilation.Ok());
+        TranspileFile transpile = new TranspileFile(
+            List.of(
+                new Procedure(
+                    "foo",
+                    new Type("binary"),
+                    List.of(
+                        new Parameter("bar", new Type("int"))
+                    ),
+                    new Block(
+                        List.of(
+                            new VariableDeclaration(
+                                "baz",
+                                new Type("num"),
+                                new NumberExpr(3)
+                            )
+                        )
+                    )
+                )
+            )
+        );
+
+        assertThat(result).isEqualTo(new FileCompilation.Ok(transpile));
     }
 }

@@ -1,5 +1,7 @@
 package org.bpc.ast;
 
+import org.bpc.compile.Registry;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +24,9 @@ public record Block(List<Statement> statements) {
         return this.statements.stream()
             .flatMap((statement) -> statement.getTypesUsed().stream())
             .toList();
+    }
+
+    public Block canonicalize(Registry registry) {
+        return new Block(this.statements.stream().map((statement) -> statement.canonicalizeStatement(registry)).toList());
     }
 }

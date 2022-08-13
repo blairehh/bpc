@@ -1,5 +1,7 @@
 package org.bpc.ast;
 
+import org.bpc.compile.Registry;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,5 +21,21 @@ public record ProcedureCall(Identifier name, List<Expr> arguments) implements St
             .stream()
             .flatMap((argument) -> argument.getTypesUsed().stream())
             .toList();
+    }
+
+    @Override
+    public Statement canonicalizeStatement(Registry registry) {
+        return new ProcedureCall(
+            this.name,
+            this.arguments().stream().map((expr) -> expr.canonicalize(registry)).toList()
+        );
+    }
+
+    @Override
+    public Expr canonicalize(Registry registry) {
+        return new ProcedureCall(
+            this.name,
+            this.arguments().stream().map((expr) -> expr.canonicalize(registry)).toList()
+        );
     }
 }

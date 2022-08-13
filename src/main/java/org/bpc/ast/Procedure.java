@@ -1,5 +1,7 @@
 package org.bpc.ast;
 
+import org.bpc.compile.Registry;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -18,5 +20,17 @@ public record Procedure(String name, Type returnType, List<Parameter> parameters
         );
 
         return types.flatMap(Function.identity()).toList();
+    }
+
+    public Procedure canonicalize(Registry registry) {
+        return new Procedure(
+            this.name,
+            registry.getCanonicalTypeFromReference(this.returnType)
+                .orElseThrow(),
+            parameters.stream()
+                .map((parameter) -> parameter.canonicalize(registry))
+                .toList(),
+            block.canonicalize(registry)
+        );
     }
 }
