@@ -12,12 +12,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FileCompiler {
-    public Set<CompilationError> load(CodeFile file, Registry register) {
+    public FileCompilation load(CodeFile file, Registry register) {
         for (Import _import : file.imports()) {
             final Module module = register.getModule(_import.namespace())
                 .orElse(null);
             if (module == null) {
-                return Set.of(new ModuleNotFound(_import.namespace()));
+                return new FileCompilation.Errors(Set.of(new ModuleNotFound(_import.namespace())));
             }
             new ImportLoader().load(module, _import.namespace(), register);
         }
@@ -28,7 +28,9 @@ public class FileCompiler {
                 errors.add(new TypeUnknown(type));
             }
         }
-        return errors.stream()
-            .collect(Collectors.toSet());
+        if (!errors.isEmpty()) {
+            return new FileCompilation.Errors(errors.stream().collect(Collectors.toSet()));
+        }
+        return new FileCompilation.Ok();
     }
 }

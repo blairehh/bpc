@@ -24,9 +24,9 @@ class FileCompilerTest {
             List.of()
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
+        FileCompilation result = loader.load(file, sdk.baseRegistry());
 
-        assertThat(errors).isEmpty();
+        assertThat(result).isEqualTo(new FileCompilation.Ok());
     }
 
     @Test
@@ -36,7 +36,7 @@ class FileCompilerTest {
             List.of()
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
+        Set<CompilationError> errors = ((FileCompilation.Errors)loader.load(file, sdk.baseRegistry())).errors();
 
         assertThat(errors).containsExactly(
             new ModuleNotFound(new Namespace("apache"))
@@ -55,7 +55,7 @@ class FileCompilerTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
+        Set<CompilationError> errors = ((FileCompilation.Errors)loader.load(file, sdk.baseRegistry())).errors();
 
         assertThat(errors).containsExactly(
             new TypeUnknown(new Type("bar"))
@@ -78,7 +78,7 @@ class FileCompilerTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
+        Set<CompilationError> errors = ((FileCompilation.Errors)loader.load(file, sdk.baseRegistry())).errors();
 
         assertThat(errors).containsExactly(
             new TypeUnknown(new Type("bar"))
@@ -109,7 +109,7 @@ class FileCompilerTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file,  sdk.baseRegistry());
+        Set<CompilationError> errors = ((FileCompilation.Errors)loader.load(file,  sdk.baseRegistry())).errors();
 
         assertThat(errors).containsExactly(
             new TypeUnknown(new Type("what"))
@@ -140,8 +140,8 @@ class FileCompilerTest {
             )
         );
 
-        Set<CompilationError> errors = loader.load(file, sdk.baseRegistry());
+        FileCompilation result = loader.load(file, sdk.baseRegistry());
 
-        assertThat(errors).isEmpty();
+        assertThat(result).isEqualTo(new FileCompilation.Ok());
     }
 }
