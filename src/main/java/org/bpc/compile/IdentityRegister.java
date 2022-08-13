@@ -1,12 +1,13 @@
 package org.bpc.compile;
 
 import org.bpc.ast.Identifier;
+import org.bpc.compile.errors.CompilationError;
+import org.bpc.compile.errors.ConflictingDeclaration;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// @TODO check for duplicates
 public class IdentityRegister {
     private final Map<Identifier, Identifier> types;
     private final Map<Identifier, Identifier> procedures;
@@ -32,12 +33,22 @@ public class IdentityRegister {
         return Optional.ofNullable(this.types.get(canonical));
     }
 
-    public void referenceCanonicalTypeAs(Identifier canonical, Identifier referenced) {
+    public Optional<CompilationError> referenceCanonicalTypeAs(Identifier canonical, Identifier referenced) {
+        final Identifier existing = this.types.get(referenced);
+        if (existing != null) {
+            return Optional.of(new ConflictingDeclaration(referenced));
+        }
         this.types.put(canonical, referenced);
+        return Optional.empty();
     }
 
-    public void referenceCanonicalProcedureAs(Identifier canonical, Identifier referenced) {
+    public Optional<CompilationError> referenceCanonicalProcedureAs(Identifier canonical, Identifier referenced) {
+        final Identifier existing = this.procedures.get(referenced);
+        if (existing != null) {
+            return Optional.of(new ConflictingDeclaration(referenced));
+        }
         this.procedures.put(canonical, referenced);
+        return Optional.empty();
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.bpc.ast.Type;
 
 import java.util.Optional;
 
+// @TODO how to hande conflicts or not founds
 public class ImportLoader {
     public ReferencedModule reference(Module module, Namespace referencedAs, IdentityRegister register) {
         return new ReferencedModule(

@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ImportLoaderTest {
 
     @Test
-    void testReferenceModule() {
+    void testImportModule() {
         SDK sdk = new SDKv1();
         IdentityRegister register = sdk.baseRegistry();
         Module module = new Module(
