@@ -19,7 +19,7 @@ public class CodeFileLoader {
             if (module == null) {
                 return Set.of(new ModuleNotFound(use.namespace()));
             }
-            new ImportLoader().reference(module, use.namespace(), register);
+            new ImportLoader().load(module, use.namespace(), register);
         }
         Set<CompilationError> errors = new HashSet<>();
         for (Type type : file.getTypesUsed()) {

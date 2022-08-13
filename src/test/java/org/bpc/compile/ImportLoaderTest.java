@@ -38,7 +38,7 @@ class ImportLoaderTest {
         );
 
         new ImportLoader()
-            .reference(module, new Namespace("io", "filesystem"), register);
+            .load(module, new Namespace("io", "filesystem"), register);
 
         assertThat(register).isEqualTo(new Registry(
             sdk,

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 // @TODO how to hande conflicts or not founds
 public class ImportLoader {
-    public void reference(Module module, Namespace referencedAs, Registry register) {
+    public void load(Module module, Namespace referencedAs, Registry register) {
         module.procedures().forEach((proc) -> this.procedure(module, referencedAs, proc, register));
         module.types().forEach((type) -> this.type(referencedAs, type, register));
     }
