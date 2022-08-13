@@ -32,9 +32,12 @@ public class ModuleReferencer {
 
     private ReferencedParameter parameter(Module module, Namespace referencedAs, Parameter parameter, IdentityRegister register) {
         final Identifier canonical = new Identifier(parameter.type().name(), parameter.type().namespace());
-        final Identifier referenced = isModuleType(module, parameter.type())
-            ? new Identifier(parameter.type().name(), referencedAs)
-            : new Identifier(parameter.type().name(), parameter.type().namespace()); // @TODO check identity register
+        if (isModuleType(module, parameter.type())) {
+            final Identifier referenced = new Identifier(parameter.type().name(), referencedAs);
+            return new ReferencedParameter(parameter.name(), new ReferencedType(referenced, canonical));
+        }
+        final Identifier referenced = register.getReferencedTypeFromCanonical(canonical)
+            .orElseThrow(); // @TODO better error handling
         return new ReferencedParameter(parameter.name(), new ReferencedType(referenced, canonical));
     }
 
@@ -47,20 +50,18 @@ public class ModuleReferencer {
             canonical,
             proc.parameters().stream().map((param) -> parameter(module, referencedAs, param, register)).toList(),
             Optional.ofNullable(proc.returnType())
-                .map((type) -> procedureReturn(module, referencedAs, type))
+                .map((type) -> procedureReturn(module, referencedAs, type, register))
         );
     }
 
-    private ReferencedType procedureReturn(Module module, Namespace referencedAs, Type type) {
+    private ReferencedType procedureReturn(Module module, Namespace referencedAs, Type type, IdentityRegister register) {
+        final Identifier canonical = new Identifier(type.name(), type.namespace());
         if (isModuleType(module, type)) {
-            return new ReferencedType(
-                new Identifier(type.name(), referencedAs),
-                new Identifier(type.name(), type.namespace())
-            );
+            return new ReferencedType(new Identifier(type.name(), referencedAs), canonical);
         }
-        // TODO check IdentityRegister
-        final Identifier identifier = new Identifier(type.name(), type.namespace());
-        return new ReferencedType(identifier, identifier);
+        final Identifier referenced = register.getReferencedTypeFromCanonical(canonical)
+            .orElseThrow(); // @TODO better error handling
+        return new ReferencedType(referenced, canonical);
     }
 
 }
