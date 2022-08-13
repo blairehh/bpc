@@ -20,29 +20,29 @@ public class ImportLoader {
     }
 
 
-    private ReferencedType type(Namespace referencedAs, Type type, Registry register) {
+    private ImportedType type(Namespace referencedAs, Type type, Registry register) {
         final Identifier referenced = new Identifier(type.name(), referencedAs);
         final Identifier canonical = new Identifier(type.name(), type.namespace());
         register.referenceCanonicalTypeAs(canonical, referenced);
-        return new ReferencedType(referenced, canonical);
+        return new ImportedType(referenced, canonical);
     }
 
-    private ReferencedParameter parameter(Module module, Namespace referencedAs, Parameter parameter, Registry register) {
+    private ImportedParameter parameter(Module module, Namespace referencedAs, Parameter parameter, Registry register) {
         final Identifier canonical = new Identifier(parameter.type().name(), parameter.type().namespace());
         if (isModuleType(module, parameter.type())) {
             final Identifier referenced = new Identifier(parameter.type().name(), referencedAs);
-            return new ReferencedParameter(parameter.name(), new ReferencedType(referenced, canonical));
+            return new ImportedParameter(parameter.name(), new ImportedType(referenced, canonical));
         }
         final Identifier referenced = register.getReferencedTypeFromCanonical(canonical)
             .orElseThrow(); // @TODO better error handling
-        return new ReferencedParameter(parameter.name(), new ReferencedType(referenced, canonical));
+        return new ImportedParameter(parameter.name(), new ImportedType(referenced, canonical));
     }
 
-    private ReferencedProcedure procedure(Module module, Namespace referencedAs, ExportedProcedure proc, Registry register) {
+    private ImportedProcedure procedure(Module module, Namespace referencedAs, ExportedProcedure proc, Registry register) {
         final Identifier referenced = new Identifier(proc.name(), referencedAs);
         final Identifier canonical = new Identifier(proc.name(), module.namespace());
 
-        final ReferencedProcedure procedure = new ReferencedProcedure(
+        final ImportedProcedure procedure = new ImportedProcedure(
             referenced,
             canonical,
             proc.parameters().stream().map((param) -> parameter(module, referencedAs, param, register)).toList(),
@@ -53,14 +53,14 @@ public class ImportLoader {
         return procedure;
     }
 
-    private ReferencedType procedureReturn(Module module, Namespace referencedAs, Type type, Registry register) {
+    private ImportedType procedureReturn(Module module, Namespace referencedAs, Type type, Registry register) {
         final Identifier canonical = new Identifier(type.name(), type.namespace());
         if (isModuleType(module, type)) {
-            return new ReferencedType(new Identifier(type.name(), referencedAs), canonical);
+            return new ImportedType(new Identifier(type.name(), referencedAs), canonical);
         }
         final Identifier referenced = register.getReferencedTypeFromCanonical(canonical)
             .orElseThrow(); // @TODO better error handling
-        return new ReferencedType(referenced, canonical);
+        return new ImportedType(referenced, canonical);
     }
 
 }

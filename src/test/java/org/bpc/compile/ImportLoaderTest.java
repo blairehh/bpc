@@ -52,23 +52,23 @@ class ImportLoaderTest {
                 procedure(
                     new Identifier("write", new Namespace("disk")),
                     new Identifier("write", new Namespace("io", "filesystem")),
-                    new ReferencedProcedure(
+                    new ImportedProcedure(
                         new Identifier("write", new Namespace("io", "filesystem")),
                         new Identifier("write", new Namespace("disk")),
                         List.of(
-                            new ReferencedParameter(
+                            new ImportedParameter(
                                 "fd",
-                                new ReferencedType(
+                                new ImportedType(
                                     new Identifier("file-descriptor", new Namespace("io", "filesystem")),
                                     new Identifier("file-descriptor", new Namespace("disk"))
                                 )
                             ),
-                            new ReferencedParameter(
+                            new ImportedParameter(
                                 "value",
-                                new ReferencedType(new Identifier("string"), new Identifier("string"))
+                                new ImportedType(new Identifier("string"), new Identifier("string"))
                             )
                         ),
-                        Optional.of(new ReferencedType(new Identifier("int"), new Identifier("int")))
+                        Optional.of(new ImportedType(new Identifier("int"), new Identifier("int")))
                     )
                 )
             )

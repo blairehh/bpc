@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 public class Registry {
     public record TypeRegistree(Identifier canonical, Identifier referenced) { }
-    public record ProcedureRegistree(Identifier canonical, Identifier referenced, ReferencedProcedure procedure) {}
+    public record ProcedureRegistree(Identifier canonical, Identifier referenced, ImportedProcedure procedure) {}
 
     public static TypeRegistree type(Type type) {
         return new TypeRegistree(
@@ -25,7 +25,7 @@ public class Registry {
         return new TypeRegistree(canonical, referenced);
     }
 
-    public static ProcedureRegistree procedure(Identifier canonical, Identifier referenced, ReferencedProcedure procedure) {
+    public static ProcedureRegistree procedure(Identifier canonical, Identifier referenced, ImportedProcedure procedure) {
         return new ProcedureRegistree(canonical, referenced, procedure);
     }
 
@@ -85,7 +85,7 @@ public class Registry {
     public Optional<CompilationError> referenceCanonicalProcedureAs(
         Identifier canonical,
         Identifier referenced,
-        ReferencedProcedure procedure
+        ImportedProcedure procedure
     ) {
         final boolean exists = this.hasReferencedProcedure(referenced);
         if (exists) {
