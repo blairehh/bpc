@@ -43,7 +43,7 @@ public class ImportLoader {
             referenced,
             canonical,
             proc.parameters().stream().map((param) -> parameter(module, referencedAs, param, register)).toList(),
-            Optional.ofNullable(proc.returnType())
+            proc.returnType()
                 .map((type) -> procedureReturn(module, referencedAs, type, register))
         );
         register.referenceCanonicalProcedureAs(canonical, referenced, procedure);

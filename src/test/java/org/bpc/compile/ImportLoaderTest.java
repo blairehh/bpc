@@ -26,7 +26,7 @@ class ImportLoaderTest {
                         new Parameter("fd", new Type("file-descriptor", new Namespace("disk"))),
                         new Parameter("value", new Type("string"))
                     ),
-                    new Type("int")
+                    Optional.of(new Type("int"))
                 )
             ),
             List.of(
