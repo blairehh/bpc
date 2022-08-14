@@ -7,6 +7,8 @@ import org.bpc.ast.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.bpc.Primitives.*;
+
 public class SDKv1 implements SDK {
     @Override
     public List<Module> modules() {
@@ -24,12 +26,12 @@ public class SDKv1 implements SDK {
     @Override
     public List<Type> types() {
         return List.of(
-            new Type("int"),
-            new Type("string"),
-            new Type("dec"),
-            new Type("binary"),
+            INT,
+            STRING,
+            DEC,
+            BINARY,
             new Type("char"),
-            new Type("num")
+            NUM
         );
     }
 

@@ -1,6 +1,9 @@
 support hexadecimal
-make char use hexadecimal or int
+support byte
+support arrays
 sequences
 indexes
 test namespaces with dots and dashes
 make sure identifiers do not start or end with dash or underscore
+remove char type
+remove num type for now

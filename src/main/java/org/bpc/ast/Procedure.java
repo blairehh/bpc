@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+// @TODO make returnType Optional
 public record Procedure(String name, Type returnType, List<Parameter> parameters, Block block) {
     public Procedure(String name, Type returnType) {
         this(name, returnType, new ArrayList<>(), new Block());
