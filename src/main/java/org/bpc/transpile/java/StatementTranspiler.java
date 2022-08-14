@@ -18,7 +18,7 @@ public class StatementTranspiler {
             dest.append(" __v__");
             dest.append(vd.name());
             dest.append(" = ");
-            expr.transpile(dest, vd.expr());
+            expr.transpile(dest, vd.expr().getExpr());
             dest.append(";\n");
             return;
         }
