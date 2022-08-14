@@ -20,7 +20,7 @@ public record ReturnStatement(ExprRef expr) implements Statement, ExprStack {
     }
 
     @Override
-    public Statement canonicalizeStatement(Registry registry) {
+    public Statement canonicalize(Registry registry) {
         return new ReturnStatement(this.expr.canonicalize(registry));
     }
 }

@@ -49,7 +49,7 @@ public final class VariableDeclaration implements Statement, ExprStack {
     }
 
     @Override
-    public Statement canonicalizeStatement(Registry registry) {
+    public Statement canonicalize(Registry registry) {
         return new VariableDeclaration(
             this.name,
             registry.getCanonicalTypeFromReference(this.type).orElseThrow(),

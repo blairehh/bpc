@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Statement {
     List<Type> getTypesUsed();
-    Statement canonicalizeStatement(Registry registry);
+    Statement canonicalize(Registry registry);
 }

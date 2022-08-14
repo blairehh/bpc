@@ -27,6 +27,6 @@ public record Block(List<Statement> statements) {
     }
 
     public Block canonicalize(Registry registry) {
-        return new Block(this.statements.stream().map((statement) -> statement.canonicalizeStatement(registry)).toList());
+        return new Block(this.statements.stream().map((statement) -> statement.canonicalize(registry)).toList());
     }
 }

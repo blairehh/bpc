@@ -16,7 +16,7 @@ public record ProcedureCall(ProcedureExpr expr) implements Statement {
     }
 
     @Override
-    public Statement canonicalizeStatement(Registry registry) {
+    public Statement canonicalize(Registry registry) {
         return new ProcedureCall(this.expr().canonicalize(registry));
     }
 }
