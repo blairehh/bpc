@@ -36,7 +36,7 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void startProcedureDefinition(String name, String returnTypeName, List<String> namespace) {
+    public void startProcedureSignature(String name, String returnTypeName, List<String> namespace) {
         Optional<Type> returnType = Optional.ofNullable(returnTypeName)
             .map((value) -> new Type(value, new Namespace(namespace)));
         this.currentProcedure = new Procedure(new ProcedureSignature(name, new ArrayList<>(), returnType));
@@ -68,7 +68,7 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void exitProcedureDefinition(String name, String returnType) {
+    public void exitProcedureSignature(String name, String returnType) {
         if (!this.exprStack.isEmpty()) {
             this.exprStack.pop();
         }

@@ -54,9 +54,10 @@ public class SyntaxListenerWrapper implements BPListener {
         this.listener.exitProcedure();
     }
 
+
     @Override
-    public void enterProc_def(BPParser.Proc_defContext ctx) {
-        this.listener.startProcedureDefinition(
+    public void enterProcedureSignature(BPParser.ProcedureSignatureContext ctx) {
+        this.listener.startProcedureSignature(
             ctx.Identifier().get(0).getText(),
             Optional.ofNullable(ctx.Identifier(1)).map(TerminalNode::getText).orElse(null),
             namespace(ctx.Namespace())
@@ -64,8 +65,8 @@ public class SyntaxListenerWrapper implements BPListener {
     }
 
     @Override
-    public void exitProc_def(BPParser.Proc_defContext ctx) {
-        this.listener.exitProcedureDefinition(
+    public void exitProcedureSignature(BPParser.ProcedureSignatureContext ctx) {
+        this.listener.exitProcedureSignature(
             ctx.Identifier().get(0).getText(),
             Optional.ofNullable(ctx.Identifier(1)).map(TerminalNode::getText).orElse(null)
         );

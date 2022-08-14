@@ -9,8 +9,8 @@ public interface SyntaxListener {
     default void startProcedure() {}
     default void exitProcedure() {}
 
-    default void startProcedureDefinition(String name, String returnType, List<String> namespace) {}
-    default void exitProcedureDefinition(String name, String returnType) {}
+    default void startProcedureSignature(String name, String returnType, List<String> namespace) {}
+    default void exitProcedureSignature(String name, String returnType) {}
 
     default void startParameter(String name, String type, List<String> namespace) {}
     default void exitParameter(String name, String type) {}

@@ -5,8 +5,8 @@ prog: (mimport | BlankLine | NewLine)* (proc | BlankLine | NewLine)+;
 
 mimport: 'use ' (Identifier | IdentifierWithDot) '\n';
 
-proc: proc_def ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
-proc_def : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Namespace? Identifier)?;
+proc: procedureSignature ' ' '{\n' (procedureStatement | BlankLine | '\n')* (returnStatement | BlankLine | NewLine)* '}';
+procedureSignature : 'proc ' Identifier ('(' parameter (', ' parameter)* ')' | '()') (' ' Namespace? Identifier)?;
 parameter: Namespace? Identifier ' ' Identifier;
 
 procedureStatement: variableDeclaration | procedureCall '\n';
