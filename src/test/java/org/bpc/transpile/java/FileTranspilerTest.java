@@ -184,10 +184,12 @@ class FileTranspilerTest {
                     List.of(),
                     new Block(
                         new ProcedureCall(
-                            new Identifier("println"),
-                            List.of(
-                                new StringExpr("oi"),
-                                new BoolExpr(false)
+                            new ProcedureExpr(
+                                new Identifier("println"),
+                                List.of(
+                                    new StringExpr("oi"),
+                                    new BoolExpr(false)
+                                )
                             )
                         )
                     )

@@ -242,11 +242,13 @@ class SourceFileTest {
                     List.of(),
                     new Block(
                         new ProcedureCall(
-                            new Identifier("bar"),
-                            List.of(
-                                new NumberExpr(1),
-                                new BoolExpr(false),
-                                new StringExpr("oi")
+                            new ProcedureExpr(
+                                new Identifier("bar"),
+                                List.of(
+                                    new NumberExpr(1),
+                                    new BoolExpr(false),
+                                    new StringExpr("oi")
+                                )
                             )
                         )
                     )
@@ -278,10 +280,10 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "bar",
                             new Type("int"),
-                            new ProcedureCall(
+                            new ProcedureExpr(
                                 new Identifier("baz"),
                                 List.of(
-                                    new ProcedureCall(new Identifier("doh"), List.of())
+                                    new ProcedureExpr(new Identifier("doh"), List.of())
                                 )
                             )
                         )
@@ -314,14 +316,14 @@ class SourceFileTest {
                         new VariableDeclaration(
                             "bar",
                             new Type("int"),
-                            new ProcedureCall(
+                            new ProcedureExpr(
                                 new Identifier("baz"),
                                 List.of(
-                                    new ProcedureCall(
+                                    new ProcedureExpr(
                                         new Identifier("doh"),
                                         List.of(
                                             new NumberExpr(987),
-                                            new ProcedureCall(new Identifier("something"), List.of(new StringExpr("here"))),
+                                            new ProcedureExpr(new Identifier("something"), List.of(new StringExpr("here"))),
                                             new BoolExpr(true)
                                         )
                                     )
@@ -544,7 +546,7 @@ class SourceFileTest {
                             new Type("int"),
                             new NumberExpr(8)
                         ),
-                        new ProcedureCall(new Identifier("print"), List.of(new Identifier("number")))
+                        new ProcedureCall(new ProcedureExpr(new Identifier("print"), List.of(new Identifier("number"))))
                     )
                 )
             )
@@ -597,10 +599,12 @@ class SourceFileTest {
                     List.of(),
                     new Block(
                         new ProcedureCall(
-                            new Identifier("println", new Namespace("console")),
-                            List.of(
-                                new Identifier("name", new Namespace("os")),
-                                new ProcedureCall(new Identifier("bar", new Namespace("foo")))
+                            new ProcedureExpr(
+                                new Identifier("println", new Namespace("console")),
+                                List.of(
+                                    new Identifier("name", new Namespace("os")),
+                                    new ProcedureExpr(new Identifier("bar", new Namespace("foo")))
+                                )
                             )
                         )
                     )

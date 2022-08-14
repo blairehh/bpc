@@ -34,11 +34,11 @@ public class StatementTranspiler {
             return;
         }
         if (statement instanceof ProcedureCall pc) {
-            dest.append(identifier("p", pc.name()));
+            dest.append(identifier("p", pc.expr().name()));
             dest.append("(");
-            for (int i = 0; i < pc.arguments().size(); i++) {
-                expr.transpile(dest, pc.arguments().get(i));
-                if (i < pc.arguments().size() - 1) {
+            for (int i = 0; i < pc.expr().arguments().size(); i++) {
+                expr.transpile(dest, pc.expr().arguments().get(i));
+                if (i < pc.expr().arguments().size() - 1) {
                     dest.append(",");
                 }
             }
