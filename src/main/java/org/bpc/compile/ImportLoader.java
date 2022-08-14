@@ -2,8 +2,6 @@ package org.bpc.compile;
 
 import org.bpc.ast.*;
 
-import java.util.Optional;
-
 // @TODO how to hande conflicts or not founds
 public class ImportLoader {
     public void load(Module module, Namespace referencedAs, Registry register) {
@@ -35,7 +33,7 @@ public class ImportLoader {
         return new ImportedParameter(parameter.name(), new ImportedType(referenced, canonical));
     }
 
-    private void procedure(Module module, Namespace referencedAs, ExportedProcedure proc, Registry register) {
+    private void procedure(Module module, Namespace referencedAs, ProcedureSignature proc, Registry register) {
         final Identifier referenced = new Reference(proc.name(), referencedAs);
         final Identifier canonical = new Reference(proc.name(), module.namespace());
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public record Module(
     Namespace namespace,
-    List<ExportedProcedure> procedures,
+    List<ProcedureSignature> procedures,
     List<Type> types
 ) {
 }

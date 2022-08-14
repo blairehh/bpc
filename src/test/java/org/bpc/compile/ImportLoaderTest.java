@@ -20,7 +20,7 @@ class ImportLoaderTest {
         Module module = new Module(
             new Namespace("disk"),
             List.of(
-                new ExportedProcedure(
+                new ProcedureSignature(
                     "write",
                     List.of(
                         new Parameter("fd", new Type("file-descriptor", new Namespace("disk"))),
