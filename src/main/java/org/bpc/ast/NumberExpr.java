@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.bpc.Misc.number;
 
-public record NumberExpr(Number value) implements Expr {
+public record NumberExpr(Number value) implements LiteralExpr {
     public NumberExpr(String value) {
         this(number(value));
     }

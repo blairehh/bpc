@@ -4,7 +4,7 @@ import org.bpc.compile.Registry;
 
 import java.util.List;
 
-public record StringExpr(String value) implements Expr {
+public record StringExpr(String value) implements LiteralExpr {
     @Override
     public List<Type> getTypesUsed() {
         return List.of(new Type("string"));

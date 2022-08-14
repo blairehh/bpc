@@ -2,6 +2,7 @@ package org.bpc.syntax;
 
 
 import org.bpc.ast.Expr;
+import org.bpc.ast.LiteralExpr;
 
 import java.util.List;
 
@@ -33,6 +34,6 @@ public interface SyntaxListener {
     default void enterImport(List<String> namespace) {}
     default void exitImport() {}
 
-    default void enterLiteralExpr(Expr expr) {}
+    default void enterLiteralExpr(LiteralExpr expr) {}
     default void exitLiteralExpr() {}
 }

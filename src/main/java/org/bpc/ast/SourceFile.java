@@ -93,7 +93,7 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void enterLiteralExpr(Expr expr) {
+    public void enterLiteralExpr(LiteralExpr expr) {
         this.enteredProcedureStatement = false;
         this.exprStack.peek().push(expr);
     }
