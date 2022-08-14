@@ -17,7 +17,7 @@ public record NumberExpr(Number value) implements LiteralExpr {
 
     @Override
     public List<Type> getTypesUsed() {
-        return List.of(new Type("num"));
+        return List.of(); // this can be many types but are all global types so no need to return anyway
     }
 
     @Override

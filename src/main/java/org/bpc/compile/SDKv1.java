@@ -30,8 +30,7 @@ public class SDKv1 implements SDK {
             INT,
             STRING,
             DEC,
-            BOOL,
-            NUM
+            BOOL
         );
     }
 
