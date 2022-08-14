@@ -147,7 +147,7 @@ class FileCompilerTest {
                         List.of(
                             new VariableDeclaration(
                                 "baz",
-                                new Type("dec"),
+                                new Type("float"),
                                 new NumberExpr(3)
                             )
                         )
@@ -173,7 +173,7 @@ class FileCompilerTest {
                         List.of(
                             new VariableDeclaration(
                                 "baz",
-                                new Type("dec"),
+                                new Type("float"),
                                 new NumberExpr(3)
                             )
                         )

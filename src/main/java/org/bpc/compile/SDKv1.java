@@ -29,7 +29,7 @@ public class SDKv1 implements SDK {
         return List.of(
             INT,
             STRING,
-            DEC,
+            FLOAT,
             BOOL
         );
     }

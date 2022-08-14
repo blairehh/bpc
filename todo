@@ -5,4 +5,3 @@ sequences
 indexes
 test namespaces with dots and dashes
 make sure identifiers do not start or end with dash or underscore
-remove num type for now

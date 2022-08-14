@@ -6,6 +6,6 @@ public class Primitives {
 
     public static final Type INT = new Type("int");
     public static final Type STRING = new Type("string");
-    public static final Type DEC = new Type("dec");
+    public static final Type FLOAT = new Type("float");
     public static final Type BOOL = new Type("bool");
 }

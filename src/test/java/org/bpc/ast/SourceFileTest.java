@@ -115,7 +115,7 @@ class SourceFileTest {
                     new Block(
                         new VariableDeclaration(
                             "baz",
-                            new Type("dec"),
+                            new Type("float"),
                             new NumberExpr(0)
                         ),
                         new ProcedureCall(new ProcedureExpr(new Reference("doh")))
