@@ -5,6 +5,7 @@ import org.bpc.compile.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
+// @TODO should this be an expr and statement
 public record ProcedureCall(Identifier name, List<Expr> arguments) implements Statement, Assignable, Expr {
     public ProcedureCall(Identifier name) {
         this(name,  new ArrayList<>());

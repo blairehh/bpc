@@ -38,6 +38,10 @@ public final class VariableDeclaration implements Statement, Assignable {
         return type;
     }
 
+    public Expr expr() {
+        return expr;
+    }
+
     @Override
     public List<Type> getTypesUsed() {
         return Stream.concat(Stream.of(this.type), this.expr.getTypesUsed().stream())

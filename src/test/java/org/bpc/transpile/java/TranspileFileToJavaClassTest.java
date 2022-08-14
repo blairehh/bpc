@@ -113,4 +113,35 @@ class TranspileFileToJavaClassTest {
             }
             """.trim());
     }
+
+    @Test
+    void testVariableDeclaration() {
+        TranspileFile file = new TranspileFile(
+            "./procs.bp",
+            List.of(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new VariableDeclaration(
+                            "name",
+                            new Type("string"),
+                            new StringExpr("Bob")
+                        )
+                    )
+                )
+            )
+        );
+
+        String javaCode = transpile.toJavaClass(file);
+
+        assertThat(javaCode).isEqualTo("""
+            public static class __f__Li9wcm9jcy5icA__ {
+            public static void __p__main() {
+            __t__string __v__name = "Bob";
+            }
+            }
+            """.trim());
+    }
 }
