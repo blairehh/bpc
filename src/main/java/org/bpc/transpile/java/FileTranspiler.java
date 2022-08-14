@@ -3,7 +3,6 @@ package org.bpc.transpile.java;
 import org.bpc.ast.Parameter;
 import org.bpc.ast.Procedure;
 import org.bpc.ast.Statement;
-import org.bpc.ast.Type;
 import org.bpc.transpile.TranspileFile;
 
 import java.util.Base64;
@@ -11,12 +10,12 @@ import java.util.Base64;
 import static org.bpc.transpile.java.Common.identifier;
 import static org.bpc.transpile.java.Common.transpileType;
 
-public class TranspileFileToJavaClass {
+public class FileTranspiler {
 
     private final Base64.Encoder b64 = Base64.getEncoder();
     private StatementTranspiler statementTranspiler = new StatementTranspiler();
 
-    public String toJavaClass(TranspileFile file) {
+    public String transpile(TranspileFile file) {
         StringBuilder builder = new StringBuilder();
         builder.append("public static class __f__");
         builder.append(b64(file.path()));
@@ -49,6 +48,4 @@ public class TranspileFileToJavaClass {
     private String b64(String value) {
         return b64.encodeToString(value.getBytes()).replace("=", "_");
     }
-
-
 }

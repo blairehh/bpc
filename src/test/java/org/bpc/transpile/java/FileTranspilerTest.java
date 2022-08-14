@@ -8,9 +8,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TranspileFileToJavaClassTest {
+class FileTranspilerTest {
 
-    TranspileFileToJavaClass transpile = new TranspileFileToJavaClass();
+    FileTranspiler transpile = new FileTranspiler();
 
     @Test
     void testEmptyTranspileFile() {
@@ -19,7 +19,7 @@ class TranspileFileToJavaClassTest {
             List.of()
         );
 
-        String javaCode = transpile.toJavaClass(file);
+        String javaCode = transpile.transpile(file);
 
         assertThat(javaCode).isEqualTo("""
             public static class __f__Li9tYWluLmJw {
@@ -41,7 +41,7 @@ class TranspileFileToJavaClassTest {
             )
         );
 
-        String javaCode = transpile.toJavaClass(file);
+        String javaCode = transpile.transpile(file);
 
         assertThat(javaCode).isEqualTo("""
             public static class __f__Li9wcm9jcy5icA__ {
@@ -70,7 +70,7 @@ class TranspileFileToJavaClassTest {
             )
         );
 
-        String javaCode = transpile.toJavaClass(file);
+        String javaCode = transpile.transpile(file);
 
         assertThat(javaCode).isEqualTo("""
             public static class __f__Li9wcm9jcy5icA__ {
@@ -104,7 +104,7 @@ class TranspileFileToJavaClassTest {
             )
         );
 
-        String javaCode = transpile.toJavaClass(file);
+        String javaCode = transpile.transpile(file);
 
         assertThat(javaCode).isEqualTo("""
             public static class __f__Li9wcm9jcy5icA__ {
@@ -134,7 +134,7 @@ class TranspileFileToJavaClassTest {
             )
         );
 
-        String javaCode = transpile.toJavaClass(file);
+        String javaCode = transpile.transpile(file);
 
         assertThat(javaCode).isEqualTo("""
             public static class __f__Li9wcm9jcy5icA__ {
@@ -161,7 +161,7 @@ class TranspileFileToJavaClassTest {
             )
         );
 
-        String javaCode = transpile.toJavaClass(file);
+        String javaCode = transpile.transpile(file);
 
         assertThat(javaCode).isEqualTo("""
             public static class __f__Li9wcm9jcy5icA__ {
@@ -194,7 +194,7 @@ class TranspileFileToJavaClassTest {
             )
         );
 
-        String javaCode = transpile.toJavaClass(file);
+        String javaCode = transpile.transpile(file);
 
         assertThat(javaCode).isEqualTo("""
             public static class __f__Li9wcm9jcy5icA__ {
