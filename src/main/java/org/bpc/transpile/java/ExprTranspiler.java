@@ -17,10 +17,10 @@ public class ExprTranspiler {
         if (expr instanceof BoolExpr bol) {
             dest.append(String.valueOf(bol.value()));
         }
-        if (expr instanceof Identifier id) {
+        if (expr instanceof Reference reference) {
             // @TODO support procs
             dest.append("__v__");
-            dest.append(identifier(id.name()));
+            dest.append(identifier(reference.name()));
         }
         // @TODO throw error
     }

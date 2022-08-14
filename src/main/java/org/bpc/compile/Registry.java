@@ -1,6 +1,5 @@
 package org.bpc.compile;
 
-import org.bpc.ast.Identifier;
 import org.bpc.ast.Namespace;
 import org.bpc.ast.Type;
 import org.bpc.compile.errors.CompilationError;
@@ -15,10 +14,7 @@ public class Registry {
     public record ProcedureRegistree(Identifier canonical, Identifier referenced, ImportedProcedure procedure) {}
 
     public static TypeRegistree type(Type type) {
-        return new TypeRegistree(
-            new Identifier(type.name(), type.namespace()),
-            new Identifier(type.name(), type.namespace())
-        );
+        return new TypeRegistree(type, type);
     }
 
     public static TypeRegistree type(Identifier canonical, Identifier referenced) {
@@ -56,7 +52,7 @@ public class Registry {
     public Optional<Type> getCanonicalTypeFromReference(Type referenced) {
         return this.types
             .stream()
-            .filter((type) -> type.referenced().equals(new Identifier(referenced.name(), referenced.namespace())))
+            .filter((type) -> type.referenced().equals(referenced))
             .map((identifier) -> new Type(identifier.canonical().name(), identifier.canonical().namespace()))
             .findFirst();
     }

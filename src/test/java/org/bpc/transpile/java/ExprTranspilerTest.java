@@ -1,9 +1,6 @@
 package org.bpc.transpile.java;
 
-import org.bpc.ast.BoolExpr;
-import org.bpc.ast.Identifier;
-import org.bpc.ast.NumberExpr;
-import org.bpc.ast.StringExpr;
+import org.bpc.ast.*;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,9 +31,9 @@ class ExprTranspilerTest {
     }
 
     @Test
-    void testTranspileIdentifier() {
+    void testTranspileReference() {
         StringBuilder builder = new StringBuilder();
-        transpiler.transpile(builder, new Identifier("max-value"));
+        transpiler.transpile(builder, new Reference("max-value"));
         assertThat(builder.toString()).isEqualTo("__v__max_value");
     }
 }

@@ -1,9 +1,6 @@
 package org.bpc.compile;
 
-import org.bpc.ast.Identifier;
-import org.bpc.ast.Namespace;
-import org.bpc.ast.Parameter;
-import org.bpc.ast.Type;
+import org.bpc.ast.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -44,31 +41,31 @@ class ImportLoaderTest {
             sdk,
             Set.of(
                 type(
-                    new Identifier("file-descriptor", new Namespace("disk")),
-                    new Identifier("file-descriptor", new Namespace("io", "filesystem"))
+                    new Type("file-descriptor", new Namespace("disk")),
+                    new Type("file-descriptor", new Namespace("io", "filesystem"))
                 )
             ),
             Set.of(
                 procedure(
-                    new Identifier("write", new Namespace("disk")),
-                    new Identifier("write", new Namespace("io", "filesystem")),
+                    new ImportedProcedureIdentifier("write", new Namespace("disk")),
+                    new ImportedProcedureIdentifier("write", new Namespace("io", "filesystem")),
                     new ImportedProcedure(
-                        new Identifier("write", new Namespace("io", "filesystem")),
-                        new Identifier("write", new Namespace("disk")),
+                        new ImportedProcedureIdentifier("write", new Namespace("io", "filesystem")),
+                        new ImportedProcedureIdentifier("write", new Namespace("disk")),
                         List.of(
                             new ImportedParameter(
                                 "fd",
                                 new ImportedType(
-                                    new Identifier("file-descriptor", new Namespace("io", "filesystem")),
-                                    new Identifier("file-descriptor", new Namespace("disk"))
+                                    new Type("file-descriptor", new Namespace("io", "filesystem")),
+                                    new Type("file-descriptor", new Namespace("disk"))
                                 )
                             ),
                             new ImportedParameter(
                                 "value",
-                                new ImportedType(new Identifier("string"), new Identifier("string"))
+                                new ImportedType(new Type("string"), new Type("string"))
                             )
                         ),
-                        Optional.of(new ImportedType(new Identifier("int"), new Identifier("int")))
+                        Optional.of(new ImportedType(new Type("int"), new Type("int")))
                     )
                 )
             )

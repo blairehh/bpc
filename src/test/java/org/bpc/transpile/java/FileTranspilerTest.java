@@ -156,7 +156,7 @@ class FileTranspilerTest {
                     Optional.empty(),
                     List.of(),
                     new Block(
-                        new ReturnStatement(new Identifier("value"))
+                        new ReturnStatement(new Reference("value"))
                     )
                 )
             )
@@ -185,7 +185,7 @@ class FileTranspilerTest {
                     new Block(
                         new ProcedureCall(
                             new ProcedureExpr(
-                                new Identifier("println"),
+                                "println",
                                 List.of(
                                     new StringExpr("oi"),
                                     new BoolExpr(false)

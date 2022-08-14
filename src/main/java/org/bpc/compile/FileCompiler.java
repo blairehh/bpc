@@ -23,7 +23,7 @@ public class FileCompiler {
         }
         Set<CompilationError> errors = new HashSet<>();
         for (Type type : file.getTypesUsed()) {
-            final boolean knownType = register.hasReferencedType(new Identifier(type.name(), type.namespace()));
+            final boolean knownType = register.hasReferencedType(type);
             if (!knownType) {
                 errors.add(new TypeUnknown(type));
             }

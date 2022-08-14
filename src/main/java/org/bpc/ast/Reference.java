@@ -1,12 +1,13 @@
 package org.bpc.ast;
 
+import org.bpc.compile.Identifier;
 import org.bpc.compile.Registry;
 
 import java.util.List;
 
-// @TODO could this me an interface
-public record Identifier(String name, Namespace namespace) implements Expr {
-    public Identifier(String name) {
+public record Reference(String name, Namespace namespace) implements Identifier, Expr {
+
+    public Reference(String name) {
         this(name, new Namespace());
     }
 
@@ -16,7 +17,7 @@ public record Identifier(String name, Namespace namespace) implements Expr {
     }
 
     @Override
-    public Expr canonicalize(Registry registry) {
+    public Reference canonicalize(Registry registry) {
         return this;
     }
 }

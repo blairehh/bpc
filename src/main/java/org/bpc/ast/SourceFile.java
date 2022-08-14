@@ -3,6 +3,7 @@ package org.bpc.ast;
 import org.bpc.compile.CodeFile;
 import org.bpc.syntax.SyntaxListener;
 
+import java.sql.Ref;
 import java.util.*;
 
 public class SourceFile implements SyntaxListener {
@@ -108,14 +109,14 @@ public class SourceFile implements SyntaxListener {
     @Override
     public void enterProcedureExpr(String name, List<String> namespace) {
         if (this.enteredProcedureStatement) {
-            ProcedureExpr expr = new ProcedureExpr(new Identifier(name, new Namespace(namespace)), new ArrayList<>());
+            ProcedureExpr expr = new ProcedureExpr(name, new Namespace(namespace), new ArrayList<>());
             ProcedureCall procedureCall = new ProcedureCall(expr);
             this.currentBlock.addStatement(procedureCall);
             this.exprStack.push(expr);
             this.enteredProcedureStatement = false;
             return;
         }
-        ProcedureExpr call = new ProcedureExpr(new Identifier(name, new Namespace(namespace)));
+        ProcedureExpr call = new ProcedureExpr(name, new Namespace(namespace));
         this.exprStack.peek().push(call);
         this.exprStack.push(call);
     }
@@ -139,7 +140,7 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void enterIdentifier(String name, List<String> namespace) {
-        this.exprStack.peek().push(new Identifier(name, new Namespace(namespace)));
+        this.exprStack.peek().push(new Reference(name, new Namespace(namespace)));
     }
 
     @Override

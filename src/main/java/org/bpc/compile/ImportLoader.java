@@ -1,9 +1,6 @@
 package org.bpc.compile;
 
-import org.bpc.ast.Identifier;
-import org.bpc.ast.Namespace;
-import org.bpc.ast.Parameter;
-import org.bpc.ast.Type;
+import org.bpc.ast.*;
 
 import java.util.Optional;
 
@@ -21,16 +18,16 @@ public class ImportLoader {
 
 
     private ImportedType type(Namespace referencedAs, Type type, Registry register) {
-        final Identifier referenced = new Identifier(type.name(), referencedAs);
-        final Identifier canonical = new Identifier(type.name(), type.namespace());
+        final Identifier referenced = new Type(type.name(), referencedAs);
+        final Identifier canonical = new Type(type.name(), type.namespace());
         register.referenceCanonicalTypeAs(canonical, referenced);
         return new ImportedType(referenced, canonical);
     }
 
     private ImportedParameter parameter(Module module, Namespace referencedAs, Parameter parameter, Registry register) {
-        final Identifier canonical = new Identifier(parameter.type().name(), parameter.type().namespace());
+        final Identifier canonical = parameter.type();
         if (isModuleType(module, parameter.type())) {
-            final Identifier referenced = new Identifier(parameter.type().name(), referencedAs);
+            final Identifier referenced = new Type(parameter.type().name(), referencedAs);
             return new ImportedParameter(parameter.name(), new ImportedType(referenced, canonical));
         }
         final Identifier referenced = register.getReferencedTypeFromCanonical(canonical)
@@ -39,8 +36,8 @@ public class ImportLoader {
     }
 
     private ImportedProcedure procedure(Module module, Namespace referencedAs, ExportedProcedure proc, Registry register) {
-        final Identifier referenced = new Identifier(proc.name(), referencedAs);
-        final Identifier canonical = new Identifier(proc.name(), module.namespace());
+        final Identifier referenced = new ImportedProcedureIdentifier(proc.name(), referencedAs);
+        final Identifier canonical = new ImportedProcedureIdentifier(proc.name(), module.namespace());
 
         final ImportedProcedure procedure = new ImportedProcedure(
             referenced,
@@ -54,9 +51,9 @@ public class ImportLoader {
     }
 
     private ImportedType procedureReturn(Module module, Namespace referencedAs, Type type, Registry register) {
-        final Identifier canonical = new Identifier(type.name(), type.namespace());
+        final Identifier canonical = type;
         if (isModuleType(module, type)) {
-            return new ImportedType(new Identifier(type.name(), referencedAs), canonical);
+            return new ImportedType(new Type(type.name(), referencedAs), canonical);
         }
         final Identifier referenced = register.getReferencedTypeFromCanonical(canonical)
             .orElseThrow(); // @TODO better error handling

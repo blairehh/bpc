@@ -1,6 +1,6 @@
 package org.bpc.transpile.java;
 
-import org.bpc.ast.Identifier;
+import org.bpc.compile.Identifier;
 import org.bpc.ast.Type;
 
 public class Common {
@@ -22,6 +22,6 @@ public class Common {
     }
 
     public static String transpileType(Type type) {
-        return identifier("t", new Identifier(type.name(), type.namespace()));
+        return identifier("t", type);
     }
 }
