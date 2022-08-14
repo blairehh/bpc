@@ -144,4 +144,64 @@ class TranspileFileToJavaClassTest {
             }
             """.trim());
     }
+
+    @Test
+    void testReturnStatement() {
+        TranspileFile file = new TranspileFile(
+            "./procs.bp",
+            List.of(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new ReturnStatement(new Identifier("value"))
+                    )
+                )
+            )
+        );
+
+        String javaCode = transpile.toJavaClass(file);
+
+        assertThat(javaCode).isEqualTo("""
+            public static class __f__Li9wcm9jcy5icA__ {
+            public static void __p__main() {
+            return __v__value;
+            }
+            }
+            """.trim());
+    }
+
+    @Test
+    void testProcedureCall() {
+        TranspileFile file = new TranspileFile(
+            "./procs.bp",
+            List.of(
+                new Procedure(
+                    "main",
+                    null,
+                    List.of(),
+                    new Block(
+                        new ProcedureCall(
+                            new Identifier("println"),
+                            List.of(
+                                new StringExpr("oi"),
+                                new BoolExpr(false)
+                            )
+                        )
+                    )
+                )
+            )
+        );
+
+        String javaCode = transpile.toJavaClass(file);
+
+        assertThat(javaCode).isEqualTo("""
+            public static class __f__Li9wcm9jcy5icA__ {
+            public static void __p__main() {
+            __p__println("oi",false);
+            }
+            }
+            """.trim());
+    }
 }
