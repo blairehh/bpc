@@ -8,6 +8,7 @@ import org.bpc.transpile.TranspileFile;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -74,7 +75,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    new Type("binary"),
+                    Optional.of(new Type("binary")),
                     List.of(
                         new Parameter("bar", new Type("bar"))
                     ),
@@ -98,7 +99,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    new Type("binary"),
+                    Optional.of(new Type("binary")),
                     List.of(
                         new Parameter("bar", new Type("int"))
                     ),
@@ -130,7 +131,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    new Type("binary"),
+                    Optional.of(new Type("binary")),
                     List.of(
                         new Parameter("bar", new Type("int"))
                     ),
@@ -154,7 +155,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    new Type("binary"),
+                    Optional.of(new Type("binary")),
                     List.of(
                         new Parameter("bar", new Type("int"))
                     ),

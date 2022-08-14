@@ -4,18 +4,18 @@ import org.bpc.compile.Registry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-// @TODO make returnType Optional
-public record Procedure(String name, Type returnType, List<Parameter> parameters, Block block) {
+public record Procedure(String name, Optional<Type> returnType, List<Parameter> parameters, Block block) {
     public Procedure(String name, Type returnType) {
-        this(name, returnType, new ArrayList<>(), new Block());
+        this(name, Optional.ofNullable(returnType), new ArrayList<>(), new Block());
     }
 
     public List<Type> getTypesUsed() {
         final Stream<Stream<Type>> types =  Stream.of(
-            Stream.of(returnType),
+            returnType.stream(),
             parameters.stream().flatMap((parameter) -> parameter.getTypesUsed().stream()),
             block.getTypesUsed().stream()
         );
@@ -26,8 +26,7 @@ public record Procedure(String name, Type returnType, List<Parameter> parameters
     public Procedure canonicalize(Registry registry) {
         return new Procedure(
             this.name,
-            registry.getCanonicalTypeFromReference(this.returnType)
-                .orElseThrow(),
+            this.returnType.map((type) -> registry.getCanonicalTypeFromReference(type).orElseThrow()),
             parameters.stream()
                 .map((parameter) -> parameter.canonicalize(registry))
                 .toList(),

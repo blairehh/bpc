@@ -5,6 +5,7 @@ import org.bpc.transpile.TranspileFile;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,7 +35,7 @@ class FileTranspilerTest {
             List.of(
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block()
                 )
@@ -58,7 +59,7 @@ class FileTranspilerTest {
             List.of(
                 new Procedure(
                     "main",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(
                         new Parameter(
                             "args",
@@ -87,7 +88,7 @@ class FileTranspilerTest {
             List.of(
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(
                         new Parameter(
                             "args",
@@ -121,7 +122,7 @@ class FileTranspilerTest {
             List.of(
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -152,7 +153,7 @@ class FileTranspilerTest {
             List.of(
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ReturnStatement(new Identifier("value"))
@@ -179,7 +180,7 @@ class FileTranspilerTest {
             List.of(
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ProcedureCall(

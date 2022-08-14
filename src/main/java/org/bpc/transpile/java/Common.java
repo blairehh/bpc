@@ -22,9 +22,6 @@ public class Common {
     }
 
     public static String transpileType(Type type) {
-        if (type == null) {
-            return "void";
-        }
         return identifier("t", new Identifier(type.name(), type.namespace()));
     }
 }

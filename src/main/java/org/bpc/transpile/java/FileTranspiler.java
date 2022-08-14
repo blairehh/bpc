@@ -22,7 +22,7 @@ public class FileTranspiler {
         builder.append(" {\n");
         for (Procedure procedure : file.procedures()) {
             builder.append("public static ");
-            builder.append(transpileType(procedure.returnType()));
+            builder.append(procedure.returnType().map(Common::transpileType).orElse("void"));
             builder.append(" __p__");
             builder.append(identifier(procedure.name()));
             builder.append("(");

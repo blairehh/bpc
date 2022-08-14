@@ -5,6 +5,7 @@ import org.bpc.syntax.SyntaxCompiler;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bpc.Util.read;
@@ -27,7 +28,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "bar",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block()
                 )
@@ -52,7 +53,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(new Parameter("foo", new Type("int"))),
                     new Block()
                 )
@@ -76,7 +77,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(new Parameter("foo", new Type("int"))),
                     new Block()
                 )
@@ -100,7 +101,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo",
-                    null,
+                    Optional.empty(),
                     List.of(new Parameter("bar", new Type("int"))),
                     new Block(
                         new VariableDeclaration(
@@ -131,7 +132,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo-bar",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(new Parameter("fo", new Type("fo"))),
                     new Block(
                         new VariableDeclaration(
@@ -161,7 +162,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo-bar",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(new Parameter("fo", new Type("fo"))),
                     new Block(
                         new VariableDeclaration(
@@ -192,7 +193,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo-bar",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -237,7 +238,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ProcedureCall(
@@ -271,7 +272,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -307,7 +308,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -350,7 +351,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "func",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -380,7 +381,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "func",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -410,7 +411,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "func",
-                    new Type("int"),
+                    Optional.of(new Type("int")),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -440,7 +441,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "foo",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ReturnStatement(
@@ -468,7 +469,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ProcedureCall(new Identifier("foo"))
@@ -495,7 +496,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ProcedureCall(new Identifier("foo"))
@@ -503,7 +504,7 @@ class SourceFileTest {
                 ),
                 new Procedure(
                     "foo",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ProcedureCall(new Identifier("bar"))
@@ -511,7 +512,7 @@ class SourceFileTest {
                 ),
                 new Procedure(
                     "bar",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block()
                 )
@@ -535,7 +536,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -566,7 +567,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    new Type("tcp-server", new Namespace("sock")),
+                    Optional.of(new Type("tcp-server", new Namespace("sock"))),
                     List.of(),
                     new Block(
                         new ProcedureCall(new Identifier("run"))
@@ -592,7 +593,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new ProcedureCall(
@@ -624,7 +625,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(),
                     new Block(
                         new VariableDeclaration(
@@ -654,7 +655,7 @@ class SourceFileTest {
                 "./code.bp",
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of(
                         new Parameter("fd", new Type("file-descriptor", new Namespace("io"))),
                         new Parameter("mode", new Type("int"))
@@ -682,7 +683,7 @@ class SourceFileTest {
                 List.of(new Import("console")),
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of( ),
                     new Block()
                 )
@@ -707,7 +708,7 @@ class SourceFileTest {
                 List.of(new Import(new Namespace("spring-boot"))),
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of( ),
                     new Block()
                 )
@@ -732,7 +733,7 @@ class SourceFileTest {
                 List.of(new Import(new Namespace("aws", "sqs"))),
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of( ),
                     new Block()
                 )
@@ -757,7 +758,7 @@ class SourceFileTest {
                 List.of(new Import(new Namespace("foo", "bar", "baz", "doh"))),
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of( ),
                     new Block()
                 )
@@ -782,7 +783,7 @@ class SourceFileTest {
                 List.of(new Import("console"), new Import("disk"), new Import("http")),
                 new Procedure(
                     "main",
-                    null,
+                    Optional.empty(),
                     List.of( ),
                     new Block()
                 )
