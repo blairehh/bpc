@@ -5,14 +5,14 @@ import org.bpc.compile.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
-public record ProcedureExpr(Identifier name, List<Expr> arguments) implements Expr, Assignable {
+public record ProcedureExpr(Identifier name, List<Expr> arguments) implements Expr, ExprStack {
 
     public ProcedureExpr(Identifier name) {
         this(name,  new ArrayList<>());
     }
 
     @Override
-    public void assign(Expr expr) {
+    public void push(Expr expr) {
         this.arguments.add(expr);
     }
 

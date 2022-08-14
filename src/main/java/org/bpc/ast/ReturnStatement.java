@@ -4,14 +4,14 @@ import org.bpc.compile.Registry;
 
 import java.util.List;
 
-public record ReturnStatement(ExprRef expr) implements Statement, Assignable {
+public record ReturnStatement(ExprRef expr) implements Statement, ExprStack {
     public ReturnStatement(Expr expr) {
         this(new ExprRef(expr));
     }
 
     @Override
-    public void assign(Expr expr) {
-        this.expr.assign(expr);
+    public void push(Expr expr) {
+        this.expr.push(expr);
     }
 
     @Override

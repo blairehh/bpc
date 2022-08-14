@@ -8,7 +8,7 @@ import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 // @TODO replace with record
-public final class VariableDeclaration implements Statement, Assignable {
+public final class VariableDeclaration implements Statement, ExprStack {
     private final String name;
     private final Type type;
     private Expr expr;
@@ -26,7 +26,7 @@ public final class VariableDeclaration implements Statement, Assignable {
     }
 
     @Override
-    public void assign(Expr expr) {
+    public void push(Expr expr) {
         this.expr = expr;
     }
 

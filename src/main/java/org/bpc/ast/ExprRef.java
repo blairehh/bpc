@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class ExprRef implements Assignable {
+public class ExprRef implements ExprStack {
     private Expr expr;
 
     public ExprRef(Expr expr) {
@@ -30,7 +30,7 @@ public class ExprRef implements Assignable {
     }
 
     @Override
-    public void assign(Expr expr) {
+    public void push(Expr expr) {
         this.expr = expr;
     }
 
