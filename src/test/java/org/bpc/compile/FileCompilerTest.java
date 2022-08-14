@@ -75,7 +75,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    Optional.of(new Type("binary")),
+                    Optional.of(new Type("bool")),
                     List.of(
                         new Parameter("bar", new Type("bar"))
                     ),
@@ -99,7 +99,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    Optional.of(new Type("binary")),
+                    Optional.of(new Type("bool")),
                     List.of(
                         new Parameter("bar", new Type("int"))
                     ),
@@ -131,7 +131,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    Optional.of(new Type("binary")),
+                    Optional.of(new Type("bool")),
                     List.of(
                         new Parameter("bar", new Type("int"))
                     ),
@@ -155,7 +155,7 @@ class FileCompilerTest {
             List.of(
                 new Procedure(
                     "foo",
-                    Optional.of(new Type("binary")),
+                    Optional.of(new Type("bool")),
                     List.of(
                         new Parameter("bar", new Type("int"))
                     ),

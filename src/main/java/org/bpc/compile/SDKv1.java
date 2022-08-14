@@ -29,7 +29,7 @@ public class SDKv1 implements SDK {
             INT,
             STRING,
             DEC,
-            BINARY,
+            BOOL,
             NUM
         );
     }

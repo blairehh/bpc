@@ -204,7 +204,7 @@ class SourceFileTest {
                         ),
                         new VariableDeclaration(
                             "active",
-                            new Type("binary"),
+                            new Type("bool"),
                             new BoolExpr(true)
                         ),
                         new VariableDeclaration(
