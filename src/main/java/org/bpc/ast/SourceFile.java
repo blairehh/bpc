@@ -109,14 +109,14 @@ public class SourceFile implements SyntaxListener {
     @Override
     public void enterProcedureExpr(String name, List<String> namespace) {
         if (this.enteredProcedureStatement) {
-            ProcedureExpr expr = new ProcedureExpr(name, new Namespace(namespace), new ArrayList<>());
+            ProcedureExpr expr = new ProcedureExpr(new Reference(name, new Namespace(namespace)), new ArrayList<>());
             ProcedureCall procedureCall = new ProcedureCall(expr);
             this.currentBlock.addStatement(procedureCall);
             this.exprStack.push(expr);
             this.enteredProcedureStatement = false;
             return;
         }
-        ProcedureExpr call = new ProcedureExpr(name, new Namespace(namespace));
+        ProcedureExpr call = new ProcedureExpr(new Reference(name, new Namespace(namespace)));
         this.exprStack.peek().push(call);
         this.exprStack.push(call);
     }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record ProcedureCall(ProcedureExpr expr) implements Statement {
-    public ProcedureCall(String name, Namespace namespace) {
-        this(new ProcedureExpr(name,  namespace, new ArrayList<>()));
+    public ProcedureCall(Reference reference) {
+        this(new ProcedureExpr(reference, new ArrayList<>()));
     }
 
     @Override

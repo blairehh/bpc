@@ -17,11 +17,11 @@ public class ImportLoader {
     }
 
 
-    private ImportedType type(Namespace referencedAs, Type type, Registry register) {
+    private void type(Namespace referencedAs, Type type, Registry register) {
         final Identifier referenced = new Type(type.name(), referencedAs);
         final Identifier canonical = new Type(type.name(), type.namespace());
         register.referenceCanonicalTypeAs(canonical, referenced);
-        return new ImportedType(referenced, canonical);
+        //return new ImportedType(referenced, canonical);
     }
 
     private ImportedParameter parameter(Module module, Namespace referencedAs, Parameter parameter, Registry register) {
@@ -35,7 +35,7 @@ public class ImportLoader {
         return new ImportedParameter(parameter.name(), new ImportedType(referenced, canonical));
     }
 
-    private ImportedProcedure procedure(Module module, Namespace referencedAs, ExportedProcedure proc, Registry register) {
+    private void procedure(Module module, Namespace referencedAs, ExportedProcedure proc, Registry register) {
         final Identifier referenced = new ImportedProcedureIdentifier(proc.name(), referencedAs);
         final Identifier canonical = new ImportedProcedureIdentifier(proc.name(), module.namespace());
 
@@ -47,7 +47,7 @@ public class ImportLoader {
                 .map((type) -> procedureReturn(module, referencedAs, type, register))
         );
         register.referenceCanonicalProcedureAs(canonical, referenced, procedure);
-        return procedure;
+        //return procedure;
     }
 
     private ImportedType procedureReturn(Module module, Namespace referencedAs, Type type, Registry register) {

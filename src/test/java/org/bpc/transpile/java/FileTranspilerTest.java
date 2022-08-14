@@ -185,7 +185,7 @@ class FileTranspilerTest {
                     new Block(
                         new ProcedureCall(
                             new ProcedureExpr(
-                                "println",
+                                new Reference("println"),
                                 List.of(
                                     new StringExpr("oi"),
                                     new BoolExpr(false)

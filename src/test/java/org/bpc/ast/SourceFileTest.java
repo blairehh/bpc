@@ -4,6 +4,7 @@ import org.bpc.syntax.SyntaxCompilation;
 import org.bpc.syntax.SyntaxCompiler;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Ref;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,7 +110,7 @@ class SourceFileTest {
                             new Type("dec"),
                             new NumberExpr(0)
                         ),
-                        new ProcedureCall(new ProcedureExpr("doh"))
+                        new ProcedureCall(new ProcedureExpr(new Reference("doh")))
                     )
                 )
             )
@@ -243,7 +244,7 @@ class SourceFileTest {
                     new Block(
                         new ProcedureCall(
                             new ProcedureExpr(
-                                "bar",
+                                new Reference("bar"),
                                 List.of(
                                     new NumberExpr(1),
                                     new BoolExpr(false),
@@ -281,9 +282,9 @@ class SourceFileTest {
                             "bar",
                             new Type("int"),
                             new ProcedureExpr(
-                                "baz",
+                                new Reference("baz"),
                                 List.of(
-                                    new ProcedureExpr("doh", List.of())
+                                    new ProcedureExpr(new Reference("doh"), List.of())
                                 )
                             )
                         )
@@ -317,13 +318,13 @@ class SourceFileTest {
                             "bar",
                             new Type("int"),
                             new ProcedureExpr(
-                                "baz",
+                                new Reference("baz"),
                                 List.of(
                                     new ProcedureExpr(
-                                        "doh",
+                                        new Reference("doh"),
                                         List.of(
                                             new NumberExpr(987),
-                                            new ProcedureExpr("something", List.of(new StringExpr("here"))),
+                                            new ProcedureExpr(new Reference("something"), List.of(new StringExpr("here"))),
                                             new BoolExpr(true)
                                         )
                                     )
@@ -474,7 +475,7 @@ class SourceFileTest {
                     Optional.empty(),
                     List.of(),
                     new Block(
-                        new ProcedureCall(new ProcedureExpr("foo"))
+                        new ProcedureCall(new ProcedureExpr(new Reference("foo")))
                     )
                 )
             )
@@ -501,7 +502,7 @@ class SourceFileTest {
                     Optional.empty(),
                     List.of(),
                     new Block(
-                        new ProcedureCall(new ProcedureExpr("foo"))
+                        new ProcedureCall(new ProcedureExpr(new Reference("foo")))
                     )
                 ),
                 new Procedure(
@@ -509,7 +510,7 @@ class SourceFileTest {
                     Optional.empty(),
                     List.of(),
                     new Block(
-                        new ProcedureCall(new ProcedureExpr("bar"))
+                        new ProcedureCall(new ProcedureExpr(new Reference("bar")))
                     )
                 ),
                 new Procedure(
@@ -546,7 +547,7 @@ class SourceFileTest {
                             new Type("int"),
                             new NumberExpr(8)
                         ),
-                        new ProcedureCall(new ProcedureExpr("print", List.of(new Reference("number"))))
+                        new ProcedureCall(new ProcedureExpr(new Reference("print"), List.of(new Reference("number"))))
                     )
                 )
             )
@@ -572,7 +573,7 @@ class SourceFileTest {
                     Optional.of(new Type("tcp-server", new Namespace("sock"))),
                     List.of(),
                     new Block(
-                        new ProcedureCall(new ProcedureExpr("run"))
+                        new ProcedureCall(new ProcedureExpr(new Reference("run")))
                     )
                 )
             )
@@ -600,11 +601,10 @@ class SourceFileTest {
                     new Block(
                         new ProcedureCall(
                             new ProcedureExpr(
-                                "println",
-                                new Namespace("console"),
+                                new Reference("println", new Namespace("console")),
                                 List.of(
                                     new Reference("name", new Namespace("os")),
-                                    new ProcedureExpr("bar", new Namespace("foo"))
+                                    new ProcedureExpr(new Reference("bar", new Namespace("foo")))
                                 )
                             )
                         )
