@@ -1,5 +1,6 @@
 package org.bpc.transpile.java;
 
+import org.bpc.ast.Parameter;
 import org.bpc.ast.Procedure;
 import org.bpc.ast.Type;
 import org.bpc.transpile.TranspileFile;
@@ -21,6 +22,15 @@ public class TranspileFileToJavaClass {
             builder.append(" __p__");
             builder.append(identifier(procedure.name()));
             builder.append("(");
+            for (int i = 0; i < procedure.parameters().size(); i++) {
+                final Parameter parameter = procedure.parameters().get(i);
+                builder.append(transpileType(parameter.type()));
+                builder.append(" __v__");
+                builder.append(identifier(parameter.name()));
+                if (i < procedure.parameters().size() - 1) {
+                    builder.append(",");
+                }
+            }
             builder.append(") {\n");
             builder.append("}\n");
         }
@@ -40,6 +50,13 @@ public class TranspileFileToJavaClass {
         if (type == null) {
             return "void";
         }
-        return "";
+        StringBuilder value = new StringBuilder();
+        value.append("__t__");
+        for (String segment : type.namespace().segments()) {
+            value.append(segment);
+            value.append("__");
+        }
+        value.append(identifier(type.name()));
+        return value.toString();
     }
 }
