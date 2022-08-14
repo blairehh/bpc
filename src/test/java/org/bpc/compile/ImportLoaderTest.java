@@ -47,11 +47,11 @@ class ImportLoaderTest {
             ),
             Set.of(
                 procedure(
-                    new ImportedProcedureIdentifier("write", new Namespace("disk")),
-                    new ImportedProcedureIdentifier("write", new Namespace("io", "filesystem")),
+                    new Reference("write", new Namespace("disk")),
+                    new Reference("write", new Namespace("io", "filesystem")),
                     new ImportedProcedure(
-                        new ImportedProcedureIdentifier("write", new Namespace("io", "filesystem")),
-                        new ImportedProcedureIdentifier("write", new Namespace("disk")),
+                        new Reference("write", new Namespace("io", "filesystem")),
+                        new Reference("write", new Namespace("disk")),
                         List.of(
                             new ImportedParameter(
                                 "fd",

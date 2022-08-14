@@ -1,6 +1,5 @@
 proc foo-bar() int {
     int num = 9
     binary active = true
-    char letter = 'C'
-    char text = "hello"
+    string text = "hello"
 }

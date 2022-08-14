@@ -36,8 +36,8 @@ public class ImportLoader {
     }
 
     private void procedure(Module module, Namespace referencedAs, ExportedProcedure proc, Registry register) {
-        final Identifier referenced = new ImportedProcedureIdentifier(proc.name(), referencedAs);
-        final Identifier canonical = new ImportedProcedureIdentifier(proc.name(), module.namespace());
+        final Identifier referenced = new Reference(proc.name(), referencedAs);
+        final Identifier canonical = new Reference(proc.name(), module.namespace());
 
         final ImportedProcedure procedure = new ImportedProcedure(
             referenced,

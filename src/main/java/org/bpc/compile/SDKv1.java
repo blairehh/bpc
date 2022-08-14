@@ -30,7 +30,6 @@ public class SDKv1 implements SDK {
             STRING,
             DEC,
             BINARY,
-            new Type("char"),
             NUM
         );
     }

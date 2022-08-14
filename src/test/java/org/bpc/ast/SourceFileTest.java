@@ -208,13 +208,8 @@ class SourceFileTest {
                             new BoolExpr(true)
                         ),
                         new VariableDeclaration(
-                            "letter",
-                            new Type("char"),
-                            new CharExpr("C")
-                        ),
-                        new VariableDeclaration(
                             "text",
-                            new Type("char"),
+                            new Type("string"),
                             new StringExpr("hello")
                         )
                     )

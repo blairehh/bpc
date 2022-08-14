@@ -18,20 +18,18 @@ procedureCall: Indentation procedureCallExpr;
 procedureCallExpr: Namespace? Identifier('(' (expr (', ' expr)*) ')' | '()');
 
 expr: literal | procedureCallExpr | identifier;
-literal: numberExpr | booleanExpr | charExpr | stringExpr;
+literal: numberExpr | booleanExpr | stringExpr;
 
 identifier: Namespace? Identifier;
 
 numberExpr: NUMBER;
 booleanExpr: BOOLEAN;
-charExpr: CHAR;
 stringExpr: STRING;
 
 NUMBER: '-'?DIGIT+ ([.] DIGIT+)?;
 fragment DIGIT: [0-9];
 
 BOOLEAN: 'true' | 'false';
-CHAR: '\'' . '\'';
 STRING: '"' .* '"'; // @TODO replace .* with something to so greedy
 
 Identifier: [a-z][a-zA-Z0-9-]*;

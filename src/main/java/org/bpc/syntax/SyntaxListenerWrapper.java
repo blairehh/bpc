@@ -5,7 +5,6 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.bpc.ast.BoolExpr;
-import org.bpc.ast.CharExpr;
 import org.bpc.ast.NumberExpr;
 import org.bpc.ast.StringExpr;
 import org.bpc.grammar.BPListener;
@@ -169,17 +168,6 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void exitBooleanExpr(BPParser.BooleanExprContext ctx) {
-        this.listener.exitExpr();
-    }
-
-    @Override
-    public void enterCharExpr(BPParser.CharExprContext ctx) {
-        String original = ctx.CHAR().getText();
-        this.listener.enterExpr(new CharExpr(original.substring(1, original.length() - 1)));
-    }
-
-    @Override
-    public void exitCharExpr(BPParser.CharExprContext ctx) {
         this.listener.exitExpr();
     }
 
