@@ -1,5 +1,6 @@
 package org.bpc.compile;
 
+import org.bpc.ast.Identifier;
 import org.bpc.ast.Namespace;
 import org.bpc.ast.Type;
 import org.bpc.compile.errors.CompilationError;

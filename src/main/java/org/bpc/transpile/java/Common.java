@@ -1,6 +1,6 @@
 package org.bpc.transpile.java;
 
-import org.bpc.compile.Identifier;
+import org.bpc.ast.Identifier;
 import org.bpc.ast.Type;
 
 public class Common {
