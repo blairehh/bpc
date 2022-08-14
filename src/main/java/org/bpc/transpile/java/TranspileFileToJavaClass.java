@@ -12,13 +12,13 @@ public class TranspileFileToJavaClass {
 
     public String toJavaClass(TranspileFile file) {
         StringBuilder builder = new StringBuilder();
-        builder.append("public static class _f_");
+        builder.append("public static class __f__");
         builder.append(b64(file.path()));
         builder.append(" {\n");
         for (Procedure procedure : file.procedures()) {
             builder.append("public static ");
             builder.append(transpileType(procedure.returnType()));
-            builder.append(" _p_");
+            builder.append(" __p__");
             builder.append(identifier(procedure.name()));
             builder.append("(");
             builder.append(") {\n");

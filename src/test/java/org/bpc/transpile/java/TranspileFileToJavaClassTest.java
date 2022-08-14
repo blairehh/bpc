@@ -22,7 +22,7 @@ class TranspileFileToJavaClassTest {
         String javaCode = transpile.toJavaClass(file);
 
         assertThat(javaCode).isEqualTo("""
-            public static class _f_Li9tYWluLmJw {
+            public static class __f__Li9tYWluLmJw {
             }
             """.trim());
     }
@@ -44,8 +44,8 @@ class TranspileFileToJavaClassTest {
         String javaCode = transpile.toJavaClass(file);
 
         assertThat(javaCode).isEqualTo("""
-            public static class _f_Li9wcm9jcy5icA__ {
-            public static void _p_main() {
+            public static class __f__Li9wcm9jcy5icA__ {
+            public static void __p__main() {
             }
             }
             """.trim());
