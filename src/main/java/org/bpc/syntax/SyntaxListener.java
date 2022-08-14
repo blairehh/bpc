@@ -33,7 +33,6 @@ public interface SyntaxListener {
     default void enterImport(List<String> namespace) {}
     default void exitImport() {}
 
-    // @TODO rename to literal expr
-    default void enterExpr(Expr expr) {}
-    default void exitExpr() {}
+    default void enterLiteralExpr(Expr expr) {}
+    default void exitLiteralExpr() {}
 }

@@ -159,37 +159,37 @@ public class SyntaxListenerWrapper implements BPListener {
 
     @Override
     public void enterNumberExpr(BPParser.NumberExprContext ctx) {
-        this.listener.enterExpr(new NumberExpr(ctx.NUMBER().getText()));
+        this.listener.enterLiteralExpr(new NumberExpr(ctx.NUMBER().getText()));
     }
 
     @Override
     public void enterBooleanExpr(BPParser.BooleanExprContext ctx) {
-        this.listener.enterExpr(new BoolExpr(Boolean.parseBoolean(ctx.BOOLEAN().getText())));
+        this.listener.enterLiteralExpr(new BoolExpr(Boolean.parseBoolean(ctx.BOOLEAN().getText())));
     }
 
     @Override
     public void exitBooleanExpr(BPParser.BooleanExprContext ctx) {
-        this.listener.exitExpr();
+        this.listener.exitLiteralExpr();
     }
 
     @Override
     public void enterStringExpr(BPParser.StringExprContext ctx) {
         String original = ctx.STRING().getText();
         if (original.equals("\"\"")) {
-            this.listener.enterExpr(new StringExpr(""));
+            this.listener.enterLiteralExpr(new StringExpr(""));
         } else {
-            this.listener.enterExpr(new StringExpr(original.substring(1, original.length() - 1)));
+            this.listener.enterLiteralExpr(new StringExpr(original.substring(1, original.length() - 1)));
         }
     }
 
     @Override
     public void exitStringExpr(BPParser.StringExprContext ctx) {
-        this.listener.exitExpr();
+        this.listener.exitLiteralExpr();
     }
 
     @Override
     public void exitNumberExpr(BPParser.NumberExprContext ctx) {
-        this.listener.exitExpr();
+        this.listener.exitLiteralExpr();
     }
 
     @Override
