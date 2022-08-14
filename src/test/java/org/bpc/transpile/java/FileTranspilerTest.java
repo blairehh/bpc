@@ -34,9 +34,11 @@ class FileTranspilerTest {
             "./procs.bp",
             List.of(
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -58,13 +60,15 @@ class FileTranspilerTest {
             "./procs.bp",
             List.of(
                 new Procedure(
-                    "main",
-                    Optional.of(new Type("int")),
-                    List.of(
-                        new Parameter(
-                            "args",
-                            new Type("list", new Namespace("collections"))
-                        )
+                    new ProcedureSignature(
+                        "main",
+                        List.of(
+                            new Parameter(
+                                "args",
+                                new Type("list", new Namespace("collections"))
+                            )
+                        ),
+                        Optional.of(new Type("int"))
                     ),
                     new Block()
                 )
@@ -87,18 +91,20 @@ class FileTranspilerTest {
             "./procs.bp",
             List.of(
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(
-                        new Parameter(
-                            "args",
-                            new Type("list", new Namespace("collections"))
+                    new ProcedureSignature(
+                        "main",
+                        List.of(
+                            new Parameter(
+                                "args",
+                                new Type("list", new Namespace("collections"))
+                            ),
+                            new Parameter("size", new Type("int")),
+                            new Parameter(
+                                "writer",
+                                new Type("buffer", new Namespace("out", "bin"))
+                            )
                         ),
-                        new Parameter("size", new Type("int")),
-                        new Parameter(
-                            "writer",
-                            new Type("buffer", new Namespace("out", "bin"))
-                        )
+                        Optional.empty()
                     ),
                     new Block()
                 )
@@ -121,9 +127,11 @@ class FileTranspilerTest {
             "./procs.bp",
             List.of(
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "name",
@@ -152,9 +160,11 @@ class FileTranspilerTest {
             "./procs.bp",
             List.of(
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ReturnStatement(new Reference("value"))
                     )
@@ -179,9 +189,11 @@ class FileTranspilerTest {
             "./procs.bp",
             List.of(
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ProcedureCall(
                             new ProcedureExpr(

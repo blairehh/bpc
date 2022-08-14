@@ -22,16 +22,16 @@ public class FileTranspiler {
         builder.append(" {\n");
         for (Procedure procedure : file.procedures()) {
             builder.append("public static ");
-            builder.append(procedure.returnType().map(Common::transpileType).orElse("void"));
+            builder.append(procedure.signature().returnType().map(Common::transpileType).orElse("void"));
             builder.append(" __p__");
-            builder.append(identifier(procedure.name()));
+            builder.append(identifier(procedure.signature().name()));
             builder.append("(");
-            for (int i = 0; i < procedure.parameters().size(); i++) {
-                final Parameter parameter = procedure.parameters().get(i);
+            for (int i = 0; i < procedure.signature().parameters().size(); i++) {
+                final Parameter parameter = procedure.signature().parameters().get(i);
                 builder.append(transpileType(parameter.type()));
                 builder.append(" __v__");
                 builder.append(identifier(parameter.name()));
-                if (i < procedure.parameters().size() - 1) {
+                if (i < procedure.signature().parameters().size() - 1) {
                     builder.append(",");
                 }
             }

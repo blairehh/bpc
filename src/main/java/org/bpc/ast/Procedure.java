@@ -8,15 +8,14 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public record Procedure(String name, Optional<Type> returnType, List<Parameter> parameters, Block block) {
-    public Procedure(String name, Type returnType) {
-        this(name, Optional.ofNullable(returnType), new ArrayList<>(), new Block());
+public record Procedure(ProcedureSignature signature, Block block) {
+    public Procedure(ProcedureSignature signature) {
+        this(signature, new Block());
     }
 
     public List<Type> getTypesUsed() {
         final Stream<Stream<Type>> types =  Stream.of(
-            returnType.stream(),
-            parameters.stream().flatMap((parameter) -> parameter.getTypesUsed().stream()),
+            signature.getTypesUsed().stream(),
             block.getTypesUsed().stream()
         );
 
@@ -25,11 +24,7 @@ public record Procedure(String name, Optional<Type> returnType, List<Parameter> 
 
     public Procedure canonicalize(Registry registry) {
         return new Procedure(
-            this.name,
-            this.returnType.map((type) -> registry.getCanonicalTypeFromReference(type).orElseThrow()),
-            parameters.stream()
-                .map((parameter) -> parameter.canonicalize(registry))
-                .toList(),
+            this.signature.canonicalize(registry),
             block.canonicalize(registry)
         );
     }

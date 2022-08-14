@@ -54,8 +54,10 @@ class FileCompilerTest {
             List.of(),
             List.of(
                 new Procedure(
-                    "foo",
-                    new Type("bar")
+                    new ProcedureSignature(
+                        "foo",
+                        new Type("bar")
+                    )
                 )
             )
         );
@@ -74,10 +76,12 @@ class FileCompilerTest {
             List.of(),
             List.of(
                 new Procedure(
-                    "foo",
-                    Optional.of(new Type("bool")),
-                    List.of(
-                        new Parameter("bar", new Type("bar"))
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(
+                            new Parameter("bar", new Type("bar"))
+                        ),
+                        Optional.of(new Type("bool"))
                     ),
                     new Block()
                 )
@@ -98,10 +102,12 @@ class FileCompilerTest {
             List.of(),
             List.of(
                 new Procedure(
-                    "foo",
-                    Optional.of(new Type("bool")),
-                    List.of(
-                        new Parameter("bar", new Type("int"))
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(
+                            new Parameter("bar", new Type("int"))
+                        ),
+                        Optional.of(new Type("bool"))
                     ),
                     new Block(
                         List.of(
@@ -130,10 +136,12 @@ class FileCompilerTest {
             List.of(),
             List.of(
                 new Procedure(
-                    "foo",
-                    Optional.of(new Type("bool")),
-                    List.of(
-                        new Parameter("bar", new Type("int"))
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(
+                            new Parameter("bar", new Type("int"))
+                        ),
+                        Optional.of(new Type("bool"))
                     ),
                     new Block(
                         List.of(
@@ -154,10 +162,12 @@ class FileCompilerTest {
             "./code.bp",
             List.of(
                 new Procedure(
-                    "foo",
-                    Optional.of(new Type("bool")),
-                    List.of(
-                        new Parameter("bar", new Type("int"))
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(
+                            new Parameter("bar", new Type("int"))
+                        ),
+                        Optional.of(new Type("bool"))
                     ),
                     new Block(
                         List.of(

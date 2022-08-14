@@ -28,9 +28,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "bar",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "bar",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -53,9 +55,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.of(new Type("int")),
-                    List.of(new Parameter("foo", new Type("int"))),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(new Parameter("foo", new Type("int"))),
+                        Optional.of(new Type("int"))
+                    ),
                     new Block()
                 )
             )
@@ -77,9 +81,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(new Parameter("foo", new Type("int"))),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(new Parameter("foo", new Type("int"))),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -101,9 +107,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo",
-                    Optional.empty(),
-                    List.of(new Parameter("bar", new Type("int"))),
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(new Parameter("bar", new Type("int"))),
+                        Optional.empty()
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "baz",
@@ -132,9 +140,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo-bar",
-                    Optional.of(new Type("int")),
-                    List.of(new Parameter("fo", new Type("fo"))),
+                    new ProcedureSignature(
+                        "foo-bar",
+                        List.of(new Parameter("fo", new Type("fo"))),
+                        Optional.of(new Type("int"))
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -162,9 +172,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo-bar",
-                    Optional.of(new Type("int")),
-                    List.of(new Parameter("fo", new Type("fo"))),
+                    new ProcedureSignature(
+                        "foo-bar",
+                        List.of(new Parameter("fo", new Type("fo"))),
+                        Optional.of(new Type("int"))
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -193,9 +205,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo-bar",
-                    Optional.of(new Type("int")),
-                    List.of(),
+                    new ProcedureSignature(
+                        "foo-bar",
+                        List.of(),
+                        Optional.of(new Type("int"))
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -233,9 +247,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ProcedureCall(
                             new ProcedureExpr(
@@ -269,9 +285,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "bar",
@@ -305,9 +323,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "bar",
@@ -348,9 +368,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "func",
-                    Optional.of(new Type("int")),
-                    List.of(),
+                    new ProcedureSignature(
+                        "func",
+                        List.of(),
+                        Optional.of(new Type("int"))
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -378,9 +400,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "func",
-                    Optional.of(new Type("int")),
-                    List.of(),
+                    new ProcedureSignature(
+                        "func",
+                        List.of(),
+                        Optional.of(new Type("int"))
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -408,9 +432,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "func",
-                    Optional.of(new Type("int")),
-                    List.of(),
+                    new ProcedureSignature(
+                        "func",
+                        List.of(),
+                        Optional.of(new Type("int"))
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "num",
@@ -438,9 +464,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "foo",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ReturnStatement(
                             new NumberExpr(5)
@@ -466,9 +494,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ProcedureCall(new ProcedureExpr(new Reference("foo")))
                     )
@@ -493,25 +523,31 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ProcedureCall(new ProcedureExpr(new Reference("foo")))
                     )
                 ),
                 new Procedure(
-                    "foo",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "foo",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ProcedureCall(new ProcedureExpr(new Reference("bar")))
                     )
                 ),
                 new Procedure(
-                    "bar",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "bar",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -533,9 +569,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "number",
@@ -564,9 +602,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.of(new Type("tcp-server", new Namespace("sock"))),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.of(new Type("tcp-server", new Namespace("sock")))
+                    ),
                     new Block(
                         new ProcedureCall(new ProcedureExpr(new Reference("run")))
                     )
@@ -590,9 +630,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new ProcedureCall(
                             new ProcedureExpr(
@@ -624,9 +666,11 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block(
                         new VariableDeclaration(
                             "fd",
@@ -654,11 +698,13 @@ class SourceFileTest {
             new SourceFile(
                 "./code.bp",
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of(
-                        new Parameter("fd", new Type("file-descriptor", new Namespace("io"))),
-                        new Parameter("mode", new Type("int"))
+                    new ProcedureSignature(
+                        "main",
+                        List.of(
+                            new Parameter("fd", new Type("file-descriptor", new Namespace("io"))),
+                            new Parameter("mode", new Type("int"))
+                        ),
+                        Optional.empty()
                     ),
                     new Block()
                 )
@@ -682,9 +728,11 @@ class SourceFileTest {
                 "./code.bp",
                 List.of(new Import("console")),
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of( ),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -707,9 +755,11 @@ class SourceFileTest {
                 "./code.bp",
                 List.of(new Import(new Namespace("spring-boot"))),
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of( ),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -732,9 +782,11 @@ class SourceFileTest {
                 "./code.bp",
                 List.of(new Import(new Namespace("aws", "sqs"))),
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of( ),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -757,9 +809,11 @@ class SourceFileTest {
                 "./code.bp",
                 List.of(new Import(new Namespace("foo", "bar", "baz", "doh"))),
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of( ),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )
@@ -782,9 +836,11 @@ class SourceFileTest {
                 "./code.bp",
                 List.of(new Import("console"), new Import("disk"), new Import("http")),
                 new Procedure(
-                    "main",
-                    Optional.empty(),
-                    List.of( ),
+                    new ProcedureSignature(
+                        "main",
+                        List.of(),
+                        Optional.empty()
+                    ),
                     new Block()
                 )
             )

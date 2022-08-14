@@ -36,11 +36,10 @@ public class SourceFile implements SyntaxListener {
     }
 
     @Override
-    public void startProcedureDefinition(String name, String returnType, List<String> namespace) {
-        this.currentProcedure = new Procedure(
-            name,
-            returnType == null ? null : new Type(returnType, new Namespace(namespace))
-        );
+    public void startProcedureDefinition(String name, String returnTypeName, List<String> namespace) {
+        Optional<Type> returnType = Optional.ofNullable(returnTypeName)
+            .map((value) -> new Type(value, new Namespace(namespace)));
+        this.currentProcedure = new Procedure(new ProcedureSignature(name, new ArrayList<>(), returnType));
         this.currentBlock = this.currentProcedure.block();
         this.procedures.add(this.currentProcedure);
     }
@@ -54,7 +53,7 @@ public class SourceFile implements SyntaxListener {
     @Override
     public void startParameter(String name, String type, List<String> namespace) {
         Parameter parameter = new Parameter(name, new Type(type, new Namespace(namespace)));
-        this.currentProcedure.parameters().add(parameter);
+        this.currentProcedure.signature().parameters().add(parameter);
     }
 
     @Override
@@ -82,9 +81,6 @@ public class SourceFile implements SyntaxListener {
 
     @Override
     public void enterProcedureCall(String name, List<String> namespace) {
-//        ProcedureCall procedureCall = new ProcedureCall(new Identifier(name, new Namespace(namespace)));
-//        this.assignable.push(procedureCall);
-//        this.currentBlock.addStatement(procedureCall);
         this.enteredProcedureStatement = true;
     }
 
